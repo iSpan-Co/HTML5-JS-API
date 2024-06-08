@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
+        <style>
+
+            .zone {
+                height: 300px;
+                border: dashed 3px #007bff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+        </style>
+
+    </head>
+
+    <body class="p-4">
+
+        <h1>03-讀取檔案Base64編碼</h1>
+        <hr>
+
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="col-md-4">
+                    <input id="myFile" type="file" class="form-control" />
+                </div>
+            </div>
+            <div class="col-4 mb-3">
+                <h5>讀取圖片方法1 DataURI</h5>
+                <div id="fileContent1"></div>
+            </div>
+            <div class="col-4 mb-3">
+                <h5>讀取圖片方法2 ObjectURL</h5>
+                <div id="fileContent2"></div>
+            </div>
+        </div>
+
+
+        <script>
+                  
+            const fileContent1 = document.querySelector("#fileContent1");
+            const myFile = document.querySelector("#myFile")
+
+            //監聽檔案元素發生改變事件
+            myFile.addEventListener("change", event=> fileViewer(event.target.files[0]));
+
+            //當檔案元素觸發改變事件時
+            function fileViewer(theFile) {
+
+                //讀取圖片方法1 DataURI - 讀取圖片的base64編碼(速度較慢，須等load完成)
+                //透過FileReader物件中readAsDataURL()讀取theFile的圖
+                const reader = new FileReader();
+                reader.readAsDataURL(theFile);
+                reader.addEventListener("load",event => {
+                    console.log("讀取好了", event.target.result); 
+                    fileContent1.innerHTML =  `<img class="w-100" src="${event.target.result}" />`;
+                });
+
+                //讀取圖片方法2 ObjectURL - 以圖片位置進行載入(載入速度較快，有載入效果)
+                const objectURI = window.URL.createObjectURL(theFile);
+                fileContent2.innerHTML =  `<img class="w-100" src="${objectURI}" />`;
+
+            }
+
+        </script>
+
+    </body>
+</html>

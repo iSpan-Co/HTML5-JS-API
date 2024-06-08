@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>04-Bootstrap驗證</h1>
+        <hr>
+
+        <div class="col-md-12">
+            <form class="row g-3 needs-validation" novalidate>
+                
+                <div class="col-md-3">
+                    <label for="txtName" class="form-label">姓名</label>
+                    <input type="text" class="form-control" id="txtName" required>
+                    <div class="invalid-feedback">
+                        請輸入姓名
+                    </div>
+                    <div class="valid-feedback">
+                        通過
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="txtAccount" class="form-label">帳號</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" id="txtAccount" required minlength="5" maxlength="10">
+                        <div class="invalid-feedback">
+                            請輸入5至10個字元
+                        </div>
+                        <div class="valid-feedback">
+                            通過
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="txtMail" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="txtMail" required pattern="[a-zA-Z0-9]{4}@[a-zA-Z0-9]\.com">
+                    <div class="invalid-feedback">
+                        請輸入email
+                    </div>
+                    <div class="valid-feedback">
+                        通過
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="txtCourse" class="form-label">課程</label>
+                    <select class="form-select" id="txtCourse" required>
+                        <option selected disabled value="">請選擇...</option>
+                        <option>18小時精實班</option>
+                        <option>188小時火箭班</option>
+                        <option>1888小時宇宙班</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        請選擇課程
+                    </div>
+                </div>
+
+                <div class="col-3">
+                    <label for="rdoSex" class="form-label">性別</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" required>
+                            <label class="form-check-label" for="inlineRadio1">男性</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2" required>
+                            <label class="form-check-label" for="inlineRadio2">女性</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3" required>
+                            <label class="form-check-label" for="inlineRadio3">其他</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label class="form-label">註冊條款</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="chkAgreement" required>
+                        <label class="form-check-label" for="chkAgreement">
+                            同意註冊條款
+                        </label>
+                        <div class="invalid-feedback">
+                            您必須點選同意註冊條款
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button class="btn btn-primary" type="submit">送出</button>
+                </div>
+
+            </form>
+        </div>
+
+
+        <script>
+
+            const form = document.querySelector('.needs-validation')
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false);
+
+            const txtMail = document.querySelector('#txtMail');
+            txtMail.addEventListener('blur', function() {
+                const inValidObj = txtMail.closest('div').querySelector('.invalid-feedback');
+                var errorMsg = "";
+                if (txtMail.validity.valueMissing) {
+                    errorMsg = '請輸入Mail！';
+                    txtMail.setCustomValidity(errorMsg);
+                } else if (txtMail.validity.patternMismatch) {
+                    errorMsg = 'Mail格式不正確，結尾必須為.com！';
+                } else {
+                    txtMail.setCustomValidity('');
+                    return;
+                }
+                txtMail.setCustomValidity(errorMsg);
+                inValidObj.innerHTML = errorMsg;
+            }); 
+
+        </script>
+
+
+    </body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>02-Audio動態音樂撥放控制</h1>
+        <hr>
+
+        <button class="btn btn-primary" onclick="playAudio()">播放</button>
+        <button class="btn btn-warning" onclick="pauseAudio()">暫停</button>
+
+        <script>
+
+            var audio = new Audio('music/CodeBeat1.mp3');
+            //audio.setAttribute('src', 'music/CodeBeat2.mp3');
+
+            function playAudio() {
+                audio.play();
+            }
+            
+            function pauseAudio() {
+                audio.pause();
+            }
+  
+        </script>
+        
+    </body>
+</html>

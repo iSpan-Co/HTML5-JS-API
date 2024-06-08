@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+        <style>
+            #sortable1, #sortable2 {
+              border: 1px solid #eee;
+              width: 142px;
+              min-height: 20px;
+              list-style-type: none;
+              margin: 0;
+              padding: 5px 0 0 0;
+              float: left;
+              margin-right: 10px;
+            }
+            #sortable1 li, #sortable2 li {
+              margin: 0 5px 5px 5px;
+              padding: 5px;
+              font-size: 1.2em;
+              width: 120px;
+            }
+            #sortable { list-style-type: none; margin: 0; padding: 0; width: 450px; }
+            #sortable li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; font-size: 4em; text-align: center; }
+        </style>
+    </head>
+
+    <body class="p-4">
+
+        <h1>02c-jQuery Sortable</h1>
+        <hr>
+ 
+        <div class="row">
+            <ul id="sortable1" class="connectedSortable">
+                <li class="ui-state-default">我</li>
+                <li class="ui-state-default">在</li>
+                <li class="ui-state-default">左</li>
+                <li class="ui-state-default">邊</li>
+                <li class="ui-state-default">！</li>
+            </ul>
+            <ul id="sortable2" class="connectedSortable">
+                <li class="ui-state-highlight">你</li>
+                <li class="ui-state-highlight">是</li>
+                <li class="ui-state-highlight">右</li>
+                <li class="ui-state-highlight">邊</li>
+                <li class="ui-state-highlight">。</li>
+            </ul>
+        </div>
+        
+        <div class="row mt-5">
+            <ul id="sortable">
+                <li class="ui-state-default">1</li>
+                <li class="ui-state-default">2</li>
+                <li class="ui-state-default">3</li>
+                <li class="ui-state-default">4</li>
+                <li class="ui-state-default">5</li>
+                <li class="ui-state-default">6</li>
+                <li class="ui-state-default">7</li>
+                <li class="ui-state-default">8</li>
+                <li class="ui-state-default">9</li>
+                <li class="ui-state-default">10</li>
+                <li class="ui-state-default">11</li>
+                <li class="ui-state-default">12</li>
+            </ul>
+        </div>
+        
+        <script>
+            
+            $(function() {
+                //不同區塊互拉
+                $( "#sortable1, #sortable2" ).sortable({
+                    connectWith: ".connectedSortable"
+                }).disableSelection();
+
+                //不同區塊互拉
+                $( "#sortable" ).sortable();
+                $( "#sortable" ).disableSelection();
+            });
+
+        </script>
+
+    </body>
+</html>

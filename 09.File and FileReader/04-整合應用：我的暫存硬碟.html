@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+        <style>
+
+            .zone {
+                height: 200px;
+                border: dashed 3px #007bff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .imgView {
+                width: 80px;
+                height: 80px;
+                padding: 10px;
+            }
+
+        </style>
+
+    </head>
+
+    <body class="p-4">
+
+        <h1>04-整合應用：我的暫存硬碟</h1>
+        <h5>參考技術：
+            <span class="badge bg-secondary">SVG</span>
+            <span class="badge bg-secondary">Application Cache</span>
+            <span class="badge bg-secondary">Drag & Drop</span>
+            <span class="badge bg-secondary">File & FileReader</span>
+        </h5>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-2 mb-3">
+                <div class="zone mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="64" height="64" class="mb-2" >
+                        <path fill="#007bff" d="M128 64c0-35.3 28.7-64 64-64H352V128c0 17.7 14.3 32 32 32H512V448c0 35.3-28.7 64-64 64H192c-35.3 0-64-28.7-64-64V336H302.1l-39 39c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l39 39H128V64zm0 224v48H24c-13.3 0-24-10.7-24-24s10.7-24 24-24H128zM512 128H384V0L512 128z"/></svg>
+                    </svg>
+                    請拖曳檔案到這裡
+                </div>
+                <div id="progressTest">已使用 XX%</div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" id="progressBar"></div>
+                </div>
+            </div>
+            <div class="col-md-10 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        暫存硬碟
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <th>檢視</th>
+                                <th>檔案名稱</th>
+                                <th>檔案大小</th>
+                                <th>上傳時間</th>
+                                <th>最後修改時間</th>
+                                <th>操作</th>
+                            </thead>
+                            <tbody id="filelist"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            
+            var cacheDrive = [];
+            const cacheCapacity = 1024*1024*5; //5MB
+            const zone = document.querySelector(".zone");
+            const filelist = document.querySelector("#filelist");
+            const progressTest = document.querySelector("#progressTest");
+            const progressBar = document.querySelector("#progressBar");
+
+            //載入取得硬碟暫存資料
+            getCache();
+            setCacheSizeAndBar();
+
+            function getCache() {
+                //取出暫存資料
+                const cart = localStorage.getItem('cacheDrive');
+                if (cart != null) {
+                    //字串轉json
+                    cacheDrive = JSON.parse(cart);
+                    //顯示到檔案清單
+                    cacheDrive.forEach(item => {
+                        setFilelist(item);
+                    });
+                }
+            }
+
+            //拖曳檔案至區域時觸發事件
+            zone.addEventListener("dragover", event => event.preventDefault());
+            zone.addEventListener("drop", event => {
+                event.preventDefault();
+                getFileInfo(event.dataTransfer.files[0]);
+            })
+    
+            function getFileInfo(theFile) {
+                //檔案重複檢查
+                const isDuplicate = cacheDrive.some(item => item.name === theFile.name);
+                if (isDuplicate) {
+                    Swal.fire({
+                        title: "警告",
+                        text: "檔案不可重複上傳",
+                        icon: "warning"
+                    });
+                    return;
+                } else {
+                    //載入檔案
+                    const reader = new FileReader();
+                    reader.readAsDataURL(theFile);
+                    reader.addEventListener("load", event => {
+                        //擴充theFile屬性
+                        const now = new Date();
+                        theFile.uploadDate = now;
+                        theFile.view = setImgView(theFile, event.target.result); 
+                        theFile.source = event.target.result; 
+                        //將檔案資訊加入table清單及cacheDrive
+                        addToCache(theFile);
+                    });
+                }
+            }
+
+            function setImgView(theFile, source) {
+                var imgView = "";
+                switch(theFile.type) {
+                    case "image/jpeg":
+                    case "image/png":
+                    case "image/gif":
+                        imgView =  source;
+                        break;     
+                    case "text/plain":
+                        imgView =  "svg/file-lines.svg";
+                        break;
+                    case "application/pdf":
+                        imgView =  "svg/file-pdf.svg";
+                        break;
+                    default:
+                        imgView = "svg/file.svg";
+                        break;
+                }
+                return imgView;
+            }
+
+            function setFilelist(theFile) {
+                //放入table
+                const tr = document.createElement("tr");
+                const td0 = document.createElement("td");
+                const td1 = document.createElement("td");
+                const td2 = document.createElement("td");
+                const td3 = document.createElement("td");
+                const td4 = document.createElement("td");
+                const td5 = document.createElement("td");
+                td0.innerHTML = `<img class="imgView" src="${theFile.view}" />`;   //檢視
+                td1.innerHTML = theFile.name;   //檔案名稱
+                td2.innerHTML = theFile.size;   //檔案大小
+                td3.innerHTML = formatLastModified(theFile.uploadDate);   //上傳時間
+                td4.innerHTML = formatLastModified(theFile.lastModified);   //最後修改時間
+                //操作
+                td5.innerHTML += `
+                    <button class='btn btn-sm btn-danger' onclick='trash(this, "${theFile.name}")'>刪除</button>
+                    <a class='btn btn-sm btn-info' href='#' onclick='downloadFile("${theFile.source}", "${theFile.name}")'>下載</a>
+                `;
+                tr.appendChild(td0);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+                tr.appendChild(td5);
+                tr.classList.add("align-middle");
+                filelist.appendChild(tr);
+            }
+
+            function addToCache(theFile) {
+                //放入localStorage暫存
+                var fileInfo = {
+                    view: theFile.view,
+                    source: theFile.source,
+                    name: theFile.name,
+                    size: theFile.size,
+                    uploadDate: formatLastModified(theFile.uploadDate),
+                    lastModified: formatLastModified(theFile.lastModified),
+                };
+      
+                try {   
+                    //set localStorage是否超過容量上限
+                    cacheDrive.push(fileInfo);
+                    const listString = JSON.stringify(cacheDrive);
+                    localStorage.setItem('cacheDrive', listString);
+                    // 沒發生錯誤，將檔案資訊加入table清單，並新增至cacheDrive
+                    setFilelist(theFile);
+                    setCacheSizeAndBar();
+                }
+                catch (e) {
+                    cacheDrive.slice(cacheDrive.length - 1);
+                    console.log(cacheDrive);
+                    console.log(e);
+                    Swal.fire({
+                        title: "警告",
+                        text: "檔案已超過 Web Storage 容量上限，故無法上傳該檔案，請清除其他資料。",
+                        icon: "error"
+                    });
+                }
+            
+            }
+
+            function setCacheSizeAndBar() {
+                const cacheSize = localStorage.getItem('cacheDrive').length;
+                const usage = cacheSize/cacheCapacity*100;
+                progressBar.style.width = usage + "%";
+                progressTest.innerHTML = `已使用 ${Math.round(usage)} %`;
+            }
+
+            //傳入毫秒，轉成 yyyy/mm/dd hh:mm:ss 回傳
+            function formatLastModified(lastModified) {
+                const date = new Date(lastModified);
+                const year = date.getFullYear();
+                const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 月份從0開始，需要加1，並補零
+                const day = date.getDate().toString().padStart(2, '0');
+                const hours = date.getHours().toString().padStart(2, '0');
+                const minutes = date.getMinutes().toString().padStart(2, '0'); 
+                const seconds = date.getSeconds().toString().padStart(2, '0');
+                return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+            }
+
+            function trash(obj, filename) {
+                Swal.fire({
+                    title: "警告",
+                    text: `確定要刪除 ${filename} 檔案嗎？`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "確定",
+                    cancelButtonText: "取消"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //刪除table的tr節點
+                        var tr = obj.closest('tr');
+                        if (tr) {
+                            tr.remove();
+                        }
+                        //刪除cacheDrive內對應filename的資料
+                        cacheDrive = cacheDrive.filter(item => item.name !== filename);
+                        const listString = JSON.stringify(cacheDrive);
+                        localStorage.setItem('cacheDrive', listString);
+                        setCacheSizeAndBar();
+                    }
+                });
+            }
+
+            function downloadFile(b, f) {
+                var blob = base64ToBlob(b);
+                var url = window.URL.createObjectURL(blob);
+                var element = document.createElement('a');
+                element.href = url;
+                element.download = f;
+                element.click();
+                window.URL.revokeObjectURL(url);
+            }
+
+            //將base64字串轉成Blob物件
+            function base64ToBlob(base64Data) {
+                var byteString = atob(base64Data.split(',')[1]);
+                var mimeString = base64Data.split(',')[0].split(':')[1].split(';')[0];
+                var ab = new ArrayBuffer(byteString.length);
+                var ia = new Uint8Array(ab);
+                for (var i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                return new Blob([ab], { type: mimeString });
+            }
+
+        </script>
+
+    </body>
+</html>

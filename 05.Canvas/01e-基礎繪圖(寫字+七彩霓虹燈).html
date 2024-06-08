@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>01e-基礎繪圖(寫字+七彩霓虹燈)</h1>
+        <hr>
+                   
+        <canvas id="canvas1" style="border: 1px solid gray;" width="640" height="150">
+            您的瀏覽器不支援canvas
+        </canvas>
+
+        <canvas id="canvas2" style="border: 1px solid gray;" width="640" height="150">
+            您的瀏覽器不支援canvas
+        </canvas>
+     
+        <script>
+
+            //一般畫字 ========================================================
+            const canvas1 = document.querySelector("#canvas1");
+            const ctx1 = canvas1.getContext("2d");
+
+            const x = canvas1.width / 2;
+            const y = canvas1.height / 2;
+            ctx1.font = "54pt Calibri";
+            ctx1.textAlign = "center";
+            ctx1.fillStyle = "#0000ff";
+            ctx1.fillText("Hello HTML5 JS API!", x, y + 20);
+            //ctx1.strokeStyle = "green";
+            //ctx1.lineWidth = 2;
+            //ctx1.strokeText("Hello HTML5 JS API!", x, y);
+
+
+            //七彩霓虹燈 ========================================================
+            const canvas2 = document.querySelector("#canvas2");
+            const ctx2 = canvas2.getContext("2d");
+
+            // 定義七種顏色
+            const colors = ["#0000ff", "#ff0000", "#00ff00", "#ffff00", "#ff00ff", "#00ffff", "#ffa500"]; 
+            let colorIndex = 0;
+            
+            // 每500毫秒變換一次顏色
+            setInterval(changeColor, 500); 
+
+            function changeColor() {
+                ctx2.clearRect(0, 0, canvas2.width, canvas2.height); // 清除畫布
+                ctx2.font = "54pt Calibri";
+                ctx2.textAlign = "center";
+                ctx2.fillStyle = colors[colorIndex]; // 設置當前顏色
+                ctx2.fillText("Hello HTML5 JS API!", canvas2.width / 2, canvas2.height / 2 + 20); // 繪製文字
+                colorIndex = (colorIndex + 1) % colors.length; // 更新顏色索引
+            }
+
+        </script>
+
+    </body>
+</html>

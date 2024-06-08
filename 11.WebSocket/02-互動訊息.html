@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>02-互動訊息</h1>
+        <hr>
+ 
+        <div class="row">
+            <div class="col-md-4 mb-2">
+                <div class="form-group mb-2">
+                    <label>請輸入暱稱</label>
+                    <input id="txtUser" class="form-control" type="text" value="emma" />
+                </div>
+                <div class="form-group mb-2">
+                    <label>請輸入訊息</label>
+                    <input id="txtMsg" class="form-control" type="text" value="hello html5 websocket" />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-dark" id="send">傳送訊息</button> 
+                </div>
+                <hr>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        互動結果
+                    </div>
+                    <div class="card-body" id="result">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            const txtUser = document.querySelector('#txtUser');
+            const txtMsg = document.querySelector('#txtMsg');
+            const result = document.querySelector('#result');
+            const send = document.querySelector('#send');
+
+            const socket = new WebSocket("https://localhost:7188/Ws1/chatWs");
+      
+                //連線建立成功
+                socket.onopen = (event) => {               
+                    showMessage("連線成功");
+                };      
+
+                //接收WebSocket傳送過來的資料
+                socket.onmessage = (event) => {
+                    console.log(event.data);      
+                    showMessage(event.data);
+                };
+
+                //關閉WebSocket連線
+                socket.onclose = (event) => {
+                    alert('關閉錯誤: ' + event.toString());
+                    console.log(event);
+                };
+
+                //WebSocket連線發生錯誤
+                socket.onerror = (error) =>  {
+                    alert('連線錯誤: ' + error.toString());
+                    console.error(event);
+                };
+
+                //傳送訊息
+                send.addEventListener("click", function (event) {
+                    const data = {
+                        user: txtUser.value,
+                        message: txtMsg.value
+                    }
+                    socket.send(JSON.stringify(data));
+                });
+
+                //顯示訊息
+                function showMessage(msg) {
+                    const li = document.createElement("li");
+                    li.textContent = msg;
+                    result.appendChild(li);
+                }
+
+        </script>
+
+    </body>
+</html>

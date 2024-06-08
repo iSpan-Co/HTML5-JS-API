@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    </head>
+
+    <body class="p-4">
+
+        <h1>03-應用：Highchart圖表</h1>
+        <hr>
+ 
+        <div id="container"></div>
+
+        <script>
+            Highcharts.chart('container', {
+                //標題
+                title: {
+                    text: '2023年出生人口數統計圖表',
+                    align: 'center'
+                },
+                //y軸
+                yAxis: {
+                    title: {
+                        text: '人口數'
+                    }
+                },
+                //圖例
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        pointStart: 1
+                    }
+                },
+                //資料數組
+                series: [{
+                    name: '出生總人數',
+                    data: [10948,10113,12506,9643,11809,11009,10891,12016,10717,13068,11272,11579]
+                }, {
+                    name: '出生人數(男性)',
+                    data: [5639,5203,6481,4989,6055,5793,5632,6267,5658,6755,5838,5917]
+                }, {
+                    name: '出生人數(女性)',
+                    data: [5309,4910,6025,4654,5754,5216,5259,5749,5059,6313,5434,5662]
+                }],
+            });
+
+        </script>
+        
+    </body>
+</html>

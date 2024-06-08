@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
+        <style>
+            .drop-targets {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                margin: 20px 0;
+            }
+
+            .box {
+                height: 150px;
+                width: 150px;
+                border: solid 3px #ccc;
+                margin: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .drag-over {
+                border: dashed 3px red;
+            }
+
+            .item {
+                height: 75px;
+                width: 75px;
+                background-color: #F0DB4F;
+            }
+
+            .hide {
+                display: none;
+            }
+        </style>
+
+    </head>
+
+    <body class="p-4">
+
+        <h1>01-事件觸發</h1>
+        <hr>
+
+        <div class="box" data-id="1">
+            <div class="item" id="item1" draggable="true"></div>
+            <!-- <img class="item" id="item1" src="image/img01.jpg" width="70" /> -->
+        </div>
+
+        <div class="box" data-id="2"></div>
+        <div class="box" data-id="3"></div>
+
+        <div id="result"></div>
+      
+
+        <script>
+            
+            const item = document.querySelector('.item');
+            const result = document.querySelector('#result');
+
+            //拖曳開始與結束綁定特定元素
+            item.addEventListener('touchstart', touchStart);
+            item.addEventListener('touchend', touchEnd);
+            item.addEventListener('touchcancel', touchCancel);
+            item.addEventListener('touchmove', touchMove);
+
+            function touchStart(e) {
+                //取得拖曳的元素資料
+                /* result.innerHTML = "touchstart";
+                e.dataTransfer.setData('text/plain', e.target.id);
+                setTimeout(() => {
+                    //拖曳時隱藏元素
+                    e.target.classList.add('hide');
+                }, 0); */
+                console.log("touchStart");
+            }
+
+            function touchEnd(e) {
+                e.preventDefault();
+               /*  result.innerHTML = "touchend";
+                e.target.classList.remove('hide'); */
+                console.log("touchEnd");
+            }
+
+            function touchCancel(e) {
+                e.preventDefault();
+                /* result.innerHTML = "touchend";
+                e.target.classList.remove('hide'); */
+                console.log("touchCancel");
+            }
+
+            function touchMove(e) {
+                e.preventDefault();
+                /* result.innerHTML = "touchend";
+                e.target.classList.remove('hide'); */
+                console.log("touchMove");
+            }
+
+          /*   //為所有的box增加拖曳觸發及放下事件
+            const boxes = document.querySelectorAll('.box');
+            boxes.forEach(box => {
+                //box.addEventListener('dragenter', dragEnter)
+                box.addEventListener('touchmove', dragOver);
+                //box.addEventListener('dragleave', dragLeave);
+                box.addEventListener('touchcancel', drop);
+            });
+
+            //進入
+            function dragEnter(e) {
+                e.preventDefault();
+                e.target.classList.add('drag-over');
+                result.innerHTML = "進入" + e.target.getAttribute('data-id');
+            }
+
+            //經過
+            function dragOver(e) {
+                e.preventDefault();
+                e.target.classList.add('drag-over');
+                //result.innerHTML = "經過" + e.target.getAttribute('data-id');
+            }
+
+            //離開
+            function dragLeave(e) {
+                e.target.classList.remove('drag-over');
+                result.innerHTML = "離開" + e.target.getAttribute('data-id');
+            }
+
+            //放下
+            function drop(e) {
+                result.innerHTML = "放下" + e.target.getAttribute('data-id');
+                e.target.classList.remove('drag-over');
+
+                //取得拖曳的元素資料
+                const id = e.dataTransfer.getData('text/plain');
+                const draggable = document.getElementById(id);
+
+                //對目標區塊增加元素
+                e.target.appendChild(draggable);
+
+            }
+ */
+        </script>
+
+    </body>
+</html>

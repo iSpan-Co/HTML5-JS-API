@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>04-應用：股票即時資訊</h1>
+        <hr>
+ 
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group form-inline mb-2">
+                    <label>請輸入股票代號</label>
+                    <input id="stockId" class="form-control" type="text" value="0056" />
+                </div>
+                <button class="btn btn-primary" onclick="refresh()">查看即時股價</button>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <h1>系統時間：<span class="badge bg-secondary" id="nowTime">00:00:00</span></h1>
+        </div>
+        
+        <div class="row mt-2" id="info"></div>
+
+        <script>
+
+            const stockId = document.querySelector('#stockId');
+            const nowTime = document.querySelector('#nowTime');
+            const infoDiv = document.querySelector('#info');
+            let firstLoad = true;
+            let source;
+
+            startConn();
+            function refresh() {
+                source.close();
+                console.log('停止');
+                firstLoad = true;
+                startConn();
+            }
+
+            function startConn() {
+                //建立EventSource物件
+                source = new EventSource('https://localhost:7188/Sse/getTwStock/' + stockId.value); 
+
+                //接收到訊息時觸發事件
+                source.addEventListener('twStock', function(event) {
+                    console.log('資料id:', event.lastEventId);
+                    const data = JSON.parse(event.data);
+                    console.log(data);
+                    nowTime.innerHTML = data.queryTime.sysTime;
+
+                    //初次載入
+                    if (firstLoad) {
+                        infoDiv.innerHTML = "";
+                        data.msgArray.forEach(item => {
+                            const id = item.c;
+                            const name = item.n;
+                            const tranPrice = item.z;
+                            const time = item.t;
+                            const info  = `
+                                <div class="col-md-4 mb-3">
+                                    <div class="card text-white bg-dark">
+                                        <div class="card-header">${id + " - " + name}</div>
+                                        <div class="card-body">
+                                            <h6 class="mb-0">成交價</h6>
+                                            <h1 class="mb-0" id="sPrice-${id}">${tranPrice}</h1>
+                                        </div>
+                                        <div class="card-footer" id="sTime-${id}">${"成交時間：" + time}</div>
+                                    </div>
+                                </div>
+                            `;
+                            infoDiv.innerHTML += info;
+                        });
+                        firstLoad = false;
+                    } else {
+                        data.msgArray.forEach(item => {
+                            const id = item.c;
+                            const tranPrice = item.z;
+                            const time = item.t;
+                            const sPrice = document.querySelector(`#sPrice-${id}`);
+                            const sTime = document.querySelector(`#sTime-${id}`);
+                            if (tranPrice != "-")
+                                sPrice.innerHTML = tranPrice;
+                            sTime.innerHTML = time;
+                        });
+                    }
+
+                }, false);
+                source.onopen = event => {
+                    console.log('連線中');
+                }
+            }
+
+            /*
+            https://hackmd.io/@aaronlife/python-ex-stock-by-api?utm_source=preview-mode&utm_medium=rec
+            z	當前盤中成交價
+            tv	當前盤中盤成交量
+            v	累積成交量
+            b	揭示買價(從高到低，以_分隔資料)
+            g	揭示買量(配合b，以_分隔資料)
+            a	揭示賣價(從低到高，以_分隔資料)
+            f	揭示賣量(配合a，以_分隔資料)
+            o	開盤價格
+            h	最高價格
+            l	最低價格
+            y	昨日收盤價格
+            u	漲停價
+            w	跌停價
+            tlong	資料更新時間（單位：毫秒）
+            d	最近交易日期（YYYYMMDD）
+            t	最近成交時刻（HH:MI:SS）
+            c	股票代號
+            n	公司簡稱
+            nf	公司全名
+            */
+
+        </script>
+
+    </body>
+</html>

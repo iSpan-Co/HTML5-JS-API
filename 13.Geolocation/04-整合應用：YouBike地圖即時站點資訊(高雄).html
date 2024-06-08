@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>04-整合應用：YouBike地圖即時站點資訊(高雄)</h1>
+        <h5>參考技術：
+            <span class="badge bg-secondary">Server Sent Event</span>
+            <span class="badge bg-secondary">Geolocation</span>
+            <span class="badge bg-secondary">Leaflet程式庫</span>
+            <span class="badge bg-secondary">YouBike OpenData(高雄)</span>
+        </h5>
+        <hr>
+ 
+        <div class="row mt-5">
+            <h1>系統時間：<span class="badge bg-secondary" id="nowTime">00:00:00</span></h1>
+        </div> 
+     
+        <div class="row">
+            <div class="col-12" id="myMap" style="width: 100%; height: 600px;"></div> 
+        </div>
+
+        <script>
+
+            const nowTime = document.querySelector('#nowTime');
+            var map;
+            var markers = [];
+            let source;
+
+            //先載入地圖
+            initMap();
+
+            //取得座標定位
+            getLocation();
+
+            //再SSE連線
+            startConn();
+
+            function initMap() {
+                map = L.map('myMap').setView([25.0196,121.538], 15);
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© HTML5 JS API'
+                }).addTo(map);
+            }
+
+            function getLocation() {
+              if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(showPosition);
+              } else {
+                  console.info("Geolocation is not supported by this browser.");
+              }
+            }
+            
+            function showPosition(position) {
+                console.log("取得定位資料", position);
+                const lng = position.coords.longitude;
+                const lat = position.coords.latitude;
+                map.setView([lat, lng], 13);
+            }
+
+            function startConn() {
+                //建立EventSource物件
+                source = new EventSource('https://localhost:7188/Sse/getKaohsiungYoubikeInfo'); 
+                //接收到訊息時觸發事件
+                 source.addEventListener('serverTime', function(event) {
+                    console.log('資料id:', event.lastEventId);
+                    console.log('資料id:',  event.data);
+                    nowTime.innerHTML = event.data;
+                }, false);
+
+                source.addEventListener('youbikeInfo', function(event) {
+                    console.log('資料id:', event.lastEventId);
+                    const reslut = JSON.parse(event.data);
+                    const data = reslut.data.retVal;
+                    //console.log(data);
+                    for(var i = 0 ; i < 100 ; i++){
+                        const sno = data[i].sno;
+                        const name = data[i].sna;
+                        const addr = data[i].ar;
+                        const infoTime = data[i].mday;
+                        const rentBikes = data[i].sbi;
+                        const returnBikes = data[i].bemp;
+                        const lat = data[i].lat;
+                        const lng = data[i].lng;
+                        const info = `站點：${name}<br>地址：${addr}<br>可借車輛：${rentBikes}<br>可停空位：${returnBikes}<br>更新時間：${infoTime}`;
+
+                        //設定已存在的Marker PopupContent
+                        var markerExist = false;
+                        markers.forEach(m => {
+                            if(m.sno == sno){
+                                m.marker.setPopupContent(info);
+                                markerExist = true;
+                                return;
+                            }
+                        });
+
+                        //如果marker不存在，則新增
+                        if(!markerExist) {
+                            var marker = L.marker([lat, lng], {
+                                title: name,
+                                alt: name,
+                                opacity: 1
+                            })
+                            .bindPopup(info)
+                            .addTo(map);
+
+                            var obj = {
+                                sno: sno,
+                                marker: marker
+                            }
+                            markers.push(obj);
+                        }
+                    }
+                }, false);
+
+                source.onopen = event => {
+                    console.log('連線中');
+                }
+            }
+
+        </script>
+
+    </body>
+</html>

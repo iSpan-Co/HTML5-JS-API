@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>01-建立WS連線</h1>
+        <hr>
+ 
+        <div class="row">
+            <div class="col-md-4 mb-2">
+                <button class="btn btn-primary" onclick="openWs()">開啟連線</button>
+                <button class="btn btn-secondary" onclick="closeWs()">關閉連線</button>
+                <p id="status">已關閉連線</p>
+                <hr>
+            </div>
+            <div class="col-md-4 mb-2">
+                <div class="form-group mb-2">
+                    <label>請輸入訊息</label>
+                    <input id="txtMsg" class="form-control" type="text" value="hello html5 websocket" />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-dark" onclick="send()">傳送訊息</button> 
+                </div>
+                <hr>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        WebSocket 伺服器端回傳結果
+                    </div>
+                    <div class="card-body" id="result">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            const status = document.querySelector('#status');
+            const result = document.querySelector('#result');
+            const txtMsg = document.querySelector('#txtMsg');
+            let socket;
+
+            function openWs() {
+                //建立WebSocket物件
+                socket = new WebSocket("wss://echo.websocket.org/");
+                socket.onopen = (event) => {
+                    status.innerHTML = "已連線";
+                }
+                socket.onmessage = (event) => {
+                    result.innerHTML += `來自於 SocketServer 的資料： ${event.data}<br>`;
+                }
+            }
+
+            function send() {
+                socket.send(txtMsg.value);
+            }
+
+            function closeWs() {
+                socket.close();
+                status.innerHTML = "關閉連線";
+            }
+
+        </script>
+
+    </body>
+</html>

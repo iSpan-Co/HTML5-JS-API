@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>04-應用：Google Chart</h1>
+        <hr>
+
+        <div id="piechart" style="width: 900px; height: 500px;"></div>
+        
+        <script>
+
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+      
+            function drawChart() {
+      
+              var data = google.visualization.arrayToDataTable([
+                ['項目', '時間'],
+                ['工作', 8],
+                ['吃東西', 2],
+                ['睡覺', 8],
+                ['休閒娛樂', 2],
+                ['通勤', 1],
+                ['其他', 3]
+              ]);
+      
+              var options = {
+                title: '我的24小時'
+              };
+      
+              var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      
+              chart.draw(data, options);
+            }
+
+          </script>
+
+    </body>
+</html>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>05-應用：會員註冊及登入</h1>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-8 mb-4">
+                <div class="card">
+                    <h5 class="card-header">會員註冊</h5>
+                    <div class="card-body">
+                        <form id="registerForm" class="row g-3 needs-validation" novalidate>
+                            
+                            <div class="col-md-4">
+                                <label for="txtAccount" class="form-label">帳號</label>
+                                <input type="text" class="form-control" id="txtAccount" required>
+                                <div class="invalid-feedback">
+                                    請輸入5至10個字元
+                                </div>
+                                <div class="valid-feedback">
+                                    通過
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="txtPsw" class="form-label">密碼</label>
+                                <input type="password" class="form-control" id="txtPsw" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}" required>
+                                <div class="invalid-feedback">
+                                    請輸入密碼 (須包含英文大寫、小寫、數字，且至少10字元)
+                                </div>
+                                <div class="valid-feedback">
+                                    通過
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="txtPswCheck" class="form-label">確認密碼</label>
+                                <input type="password" class="form-control" id="txtPswCheck" required>
+                                <div class="invalid-feedback">
+                                    請輸入確認密碼
+                                </div>
+                                <div class="valid-feedback">
+                                    通過
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="txtName" class="form-label">姓名</label>
+                                <input type="text" class="form-control" id="txtName" required>
+                                <div class="invalid-feedback">
+                                    請輸入姓名
+                                </div>
+                                <div class="valid-feedback">
+                                    通過
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label for="txtMail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="txtMail" required>
+                                <div class="invalid-feedback">
+                                    請輸入email
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="txtCourse" class="form-label">課程</label>
+                                <select class="form-select" id="txtCourse" required>
+                                    <option selected disabled value="">請選擇...</option>
+                                    <option>18小時精實班</option>
+                                    <option>188小時火箭班</option>
+                                    <option>1888小時宇宙班</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    請選擇課程
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="chkAgreement" required>
+                                    <label class="form-check-label" for="chkAgreement">
+                                        同意註冊參加 HTML5 JS API課程
+                                    </label>
+                                    <div class="invalid-feedback">
+                                        您必須同意註冊參加 HTML5 JS API課程
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">送出</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <h5 class="card-header">登入</h5>
+                    <div class="card-body">
+
+                        <form id="signForm" class="row g-3 needs-validation" novalidate>
+
+                            <div class="col-md-12">
+                                <label for="txtAccount" class="form-label">帳號</label>
+                                <input type="text" class="form-control" id="txtAccount" required>
+                                <div class="invalid-feedback">
+                                    請輸入帳號
+                                </div>
+                                <div class="valid-feedback">
+                                    通過
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <label for="txtPsw" class="form-label">密碼</label>
+                                <input type="password" class="form-control" id="txtPsw" required>
+                                <div class="invalid-feedback">
+                                    請輸入密碼
+                                </div>
+                                <div class="valid-feedback">
+                                    通過
+                                </div>
+                            </div>
+
+                            <div class="col-12 d-grid">
+                                <button class="btn btn-primary" type="submit">登入</button>
+                            </div>
+        
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <script>
+
+            const registerForm = document.querySelector('#registerForm')
+            registerForm.addEventListener('submit', event => {
+                if (!registerForm.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    alert('註冊成功');
+                }
+                registerForm.classList.add('was-validated')
+            }, false);
+           
+            const signForm = document.querySelector('#signForm')
+            signForm.addEventListener('submit', event => {
+                if (!signForm.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    alert('登入成功');
+                }
+                signForm.classList.add('was-validated')
+            }, false);
+           
+
+        </script>
+
+
+    </body>
+</html>

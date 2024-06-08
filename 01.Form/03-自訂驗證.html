@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>03-自訂驗證</h1>
+        <hr>
+    
+        <div class="col-md-6">
+            <form class="row g-3" id="myForm">
+                <div class="col-md-12">
+                    <label for="txtAccount" class="form-label">帳號</label>
+                    <input type="text" class="form-control" id="txtAccount" required>
+                    <small class="text-danger" data-id="txtAccount"></small>
+                </div>
+                <div class="col-md-12">
+                    <label for="txtPsw" class="form-label">密碼</label>
+                    <input type="password" class="form-control" id="txtPsw" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}" required>
+                    <small class="text-danger" data-id="txtPsw"></small>
+                </div>
+                <div class="col-md-12">
+                    <label for="txtPswCheck" class="form-label">確認密碼</label>
+                    <input type="password" class="form-control" id="txtPswCheck">
+                    <small class="text-danger" data-id="txtPswCheck"></small>
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-primary" type="submit" id="btnSubmit">送出</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+
+            //取消預設的驗證訊息的顯示方式
+            const myForm = document.querySelector('#myForm');
+            myForm.addEventListener('invalid', function (event) {
+                event.preventDefault();
+            }, true);
+
+
+            const btnSubmit = document.querySelector('#btnSubmit');
+            btnSubmit.addEventListener('click', event => {
+                event.preventDefault(); //取消Submit的預設行為
+
+                //清空錯誤提示
+                const smallTags = myForm.querySelectorAll('small');
+                smallTags.forEach(tag => {  tag.innerHTML = ''; })
+
+                //檢查密碼欄位是否一致
+                const txtPsw = document.querySelector('#txtPsw');
+                const txtPswCheck = document.querySelector('#txtPswCheck');
+                txtPsw.setCustomValidity("");
+                txtPswCheck.setCustomValidity("");
+                if(txtPsw.validity.patternMismatch)
+                    txtPsw.setCustomValidity("密碼規則必須包含英文大寫、小寫、特殊符號及數字，且至少10字元!!");
+                if(txtPsw.value != txtPswCheck.value || txtPswCheck.value == '')
+                    txtPswCheck.setCustomValidity("密碼不一致!!");
+
+                //回傳false，表示至少有一個錯誤
+                console.log(myForm.checkValidity());
+                if ("myForm.checkValidity()", myForm.checkValidity()) {
+                    alert("全部驗證通過");
+                    myForm.submit(); //如果表單驗證都正確就直接Submit
+                    return;
+                }
+                const invalidInputs = myForm.querySelectorAll(':invalid');
+                console.log(invalidInputs);
+                
+                //顯示錯誤圖示及錯誤訊息
+                invalidInputs.forEach(input => {
+                    const sml = document.querySelector(`small[data-id="${input.id}"]`);
+                    sml.innerHTML = `<strong>${input.validationMessage}</strong>`;
+                })
+            });
+
+        </script>
+
+
+    </body>
+</html>

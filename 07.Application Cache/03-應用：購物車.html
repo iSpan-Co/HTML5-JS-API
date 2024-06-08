@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>03-應用：購物車</h1>
+        <hr>
+
+        <div class="row">
+
+            <div class="col-sm-8 mb-3">
+                <div class="card">
+                    <div class="card-header">選購商品</div>
+                    <div class="card-body">
+                       
+                        <div class="row mb-3">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="card">
+                                    <img src="image/burger.png" class="card-img-top px-4 pt-4">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">漢堡</h5>
+                                        <p class="card-text">68元</p>
+                                        <button class="btn btn-sm btn-primary addToCart">加入購物車</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="card">
+                                    <img src="image/donut.png" class="card-img-top px-4 pt-4">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">甜甜圈</h5>
+                                        <p class="card-text">38元</p>
+                                        <button class="btn btn-sm btn-primary addToCart">加入購物車</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="card">
+                                    <img src="image/french-fries.png" class="card-img-top px-4 pt-4">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">薯條</h5>
+                                        <p class="card-text">55元</p>
+                                        <button class="btn btn-sm btn-primary addToCart">加入購物車</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="card">
+                                    <img src="image/fried-chicken.png" class="card-img-top px-4 pt-4">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">炸雞</h5>
+                                        <p class="card-text">49元</p>
+                                        <button class="btn btn-sm btn-primary addToCart">加入購物車</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="card">
+                                    <img src="image/hot-dog.png" class="card-img-top px-4 pt-4">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">熱狗堡</h5>
+                                        <p class="card-text">50元</p>
+                                        <button class="btn btn-sm btn-primary addToCart">加入購物車</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="card">
+                                    <img src="image/ice-cream.png" class="card-img-top px-4 pt-4">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">冰淇淋</h5>
+                                        <p class="card-text">18元</p>
+                                        <button class="btn btn-sm btn-primary addToCart">加入購物車</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="card">
+                                    <img src="image/pizza.png" class="card-img-top px-4 pt-4">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title" data-price="60">批薩</h5>
+                                        <p class="card-text">60元</p>
+                                        <button class="btn btn-sm btn-primary addToCart">加入購物車</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div> 
+
+            <div class="col-sm-4 mb-3">
+                <div class="card">
+                    <div class="card-header">購物車</div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush" id="myCart"></ul>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-dark" onclick="clearCache()">清除購物車</button>
+                    </div>
+                </div>
+            </div> 
+
+        </div>
+
+
+        <script>
+
+            var cacheCart = [];
+            const myCart = document.querySelector("#myCart");
+            const cartBtns = document.querySelectorAll(".addToCart");
+
+            //載入取得購物車暫存資料
+            getCache();
+
+            cartBtns.forEach(button => {
+                button.addEventListener("click", event => {
+                    addToCart();
+                });
+            });
+
+            function addToCart() {
+
+                const card = event.target.closest('.card');
+
+                // 找到商品標題
+                const title = card.querySelector('.card-title').innerText;
+
+                // 找到商品價格
+                const price = card.querySelector('.card-text').innerText;
+                
+                // 放到購物車
+                const product = document.createElement('li');
+                product.className = 'list-group-item';
+                product.innerHTML = title + ', ' + price;
+                myCart.appendChild(product);
+
+                var item = {
+                    name: title,
+                    price: price
+                };
+                cacheCart.push(item);
+
+                const productString = JSON.stringify(cacheCart);
+
+                // 放到localStorage
+                localStorage.setItem('cart', productString);
+               
+            }
+
+            function getCache() {
+                //取出暫存資料
+                const cart = localStorage.getItem('cart');
+                if (cart != null) {
+
+                    //字串轉json
+                    cacheCart = JSON.parse(cart);
+
+                    //顯示到購物清單
+                    cacheCart.forEach(item => {
+                        const product = document.createElement('li');
+                        product.className = 'list-group-item';
+                        product.innerHTML = item.name + ', ' + item.price;
+                        myCart.appendChild(product);
+                    });
+                }
+            }
+
+            function clearCache() {
+                localStorage.clear();
+                myCart.innerHTML = '';
+                Swal.fire({
+                    title: "已清除購物車",
+                    //text: "已清除購物車",
+                    icon: "success"
+                });
+            }
+
+        </script>
+
+
+    </body>
+</html>

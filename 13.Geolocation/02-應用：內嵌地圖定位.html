@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>02-應用：內嵌地圖定位</h1>
+        <hr>
+
+        <div class="row">
+
+            <div class="col-12 mb-3">
+                <button class="btn btn-primary" onclick="getLocation()">取得經緯度</button>
+            </div> 
+
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">Google Map</div>
+                    <div class="card-body">
+                        <iframe id="gMap" width="600" height="450" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d8510.468509754035!2d120.30858988090743!3d22.614199040461113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1szh-TW!2stw!4v1716785621357!5m2!1szh-TW!2stw" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">OpenStreetMap</div>
+                    <div class="card-body">
+                        <iframe id="osMap" width="600" height="450" src="https://www.openstreetmap.org/export/embed.html?bbox=120.00984191894533%2C23.284872806785636%2C121.0631561279297%2C23.898393832743015&amp;layer=mapnik" style="border: 1px solid black"></iframe>
+                    </div>
+                </div>
+            </div> 
+
+        </div>
+
+
+        <script>
+
+            function getLocation() {
+              if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(showPosition);
+              } else {
+                  console.info("Geolocation is not supported by this browser.");
+              }
+            }
+            
+            function showPosition(position) {
+                console.log("取得定位資料", position);
+                const lng = position.coords.longitude;
+                const lat = position.coords.latitude;
+                const gMap = document.querySelector("#gMap");
+                const osMap = document.querySelector("#osMap");
+                gMap.src = `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d8510.468509754035!2d${lng}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1szh-TW!2stw!4v1716785621357!5m2!1szh-TW!2stw`;
+                osMap.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.005}%2C${lat-0.005}%2C${lng+0.005}%2C${lat+0.005}&amp;layer=mapnik`;
+                alert(`經度:${lng}, 緯度:${lat}`);
+            }
+
+        </script>
+
+    </body>
+</html>
+
