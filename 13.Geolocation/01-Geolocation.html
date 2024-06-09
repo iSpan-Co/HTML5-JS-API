@@ -22,6 +22,7 @@
 
         <script>
             function getLocation() {
+                // 取得使用者的位置資訊
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
                 } else {
@@ -30,6 +31,7 @@
             }
 
             function showPosition(position) {
+                // 顯示使用者的位置資訊
                 console.log("取得定位資料", position);
                 alert(`經度:${position.coords.longitude}, 緯度:${position.coords.latitude}`);
             }

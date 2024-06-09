@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>01-getUserMedia存取視訊及聲音</h1>
+        <h1>01-getUserMedia存取視訊及聲音-練習</h1>
         <hr>
 
         <div class="row">
@@ -24,7 +24,7 @@
                         <button class="btn btn-primary" onclick="screenshot()">截圖</button>
                     </div>
                     <div class="card-body">
-                        <video autoplay class="w-100"></video>
+                        <!-- 顯示視訊 -->
                     </div>
                 </div>
             </div>
@@ -47,15 +47,15 @@
             const canvas = document.querySelector("canvas");
 
             // 如果不支援getUserMedia
-            if (!navigator.mediaDevices?.getUserMedia) {
+            if (!navigator.mediaDevices?._________) {
                     alert("不支援getUserMedia!");
             } else {
         
                 // 取得視訊鏡頭及音訊的媒體流
-                navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+                navigator.mediaDevices._________({ video: true, audio: false })
                 .then((localMediaStream) => {
                     // 將媒體流設定到 <video> 元素
-                    video.srcObject = localMediaStream;
+                    video.srcObject = _________;
                 })
                 .catch((error) => {
                     alert("未被授權!");

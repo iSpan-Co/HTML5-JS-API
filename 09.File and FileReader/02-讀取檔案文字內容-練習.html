@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
+        <style>
+
+            .zone {
+                height: 300px;
+                border: dashed 3px #007bff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+        </style>
+
+    </head>
+
+    <body class="p-4">
+
+        <h1>02-讀取檔案文字內容-練習</h1>
+        <hr>
+
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="col-md-3">
+                    <input id="myFile" type="file" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12 mb-3" id="fileContent">
+            </div>
+        </div>
+
+
+        <script>
+                  
+            const fileContent = document.querySelector("#fileContent");
+            const myFile = document.querySelector("#myFile")
+
+            //監聽檔案元素發生改變事件
+            myFile.addEventListener("change", event=> fileViewer(event.target.files[0]));
+
+            //當檔案元素觸發改變事件時
+            function fileViewer(theFile) {
+                //透過FileReader物件中readAsText()讀取theFile的文字內容
+                const reader = new _________();
+                reader._________(theFile, "utf-8");  //編碼方式 
+
+                //沒有完成load前，取result屬性，會回傳undefined
+                console.log("正在讀取中", event.target.result); 
+
+                //需在load事件完成後，再讀取result屬性
+                reader.addEventListener("_________",event => {
+                    console.log("讀取好了", event.target.result); 
+                    fileContent.innerHTML = _________;
+                });
+            }
+
+        </script>
+
+    </body>
+</html>

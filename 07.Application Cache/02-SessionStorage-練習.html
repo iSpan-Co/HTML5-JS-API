@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>01-LocalStorage</h1>
+        <h1>02-SessionStorage-練習</h1>
         <hr>
 
         <div class="row">
@@ -34,17 +34,15 @@
                 if (txtName.value == "") {
                     alert("請輸入姓名");
                 } else {
-                    //設定userName的localStorage暫存
-                    localStorage.setItem('userName', txtName.value);
-                    //localStorage.userName = txtName.value;
+                    //設定userName的sessionStorage暫存
+                    _________
                     alert("已暫存姓名");
                 }
             }
 
             function getCache() {
-                //取得userName的localStorage暫存
-                const userName = localStorage.getItem('userName');
-                //const userName = localStorage.userName;
+                //取得userName的sessionStorage暫存
+                _________
                 if (userName == null) {
                     alert("未設置暫存姓名");
                 } else {
@@ -53,8 +51,8 @@
             }
 
             function clearCache() {
-                //清除userName的localStorage暫存
-                localStorage.clear();
+                //清除userName的sessionStorage暫存
+                _________
                 alert("已清除暫存");
             }
 

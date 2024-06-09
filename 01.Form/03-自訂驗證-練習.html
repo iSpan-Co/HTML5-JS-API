@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>03-自訂驗證</h1>
+        <h1>03-自訂驗證-練習</h1>
         <hr>
     
         <div class="col-md-6">
@@ -65,16 +65,16 @@
                 txtPswCheck.setCustomValidity("");
 
                 //檢查密碼規則是否符合，並自訂錯誤訊息
-                if(txtPsw.validity.patternMismatch)
-                    txtPsw.setCustomValidity("密碼規則必須包含英文大寫、小寫、特殊符號及數字，且至少10字元!!");
+                if(txtPsw.validity._________)
+                    txtPsw._________("密碼規則必須包含英文大寫、小寫、特殊符號及數字，且至少10字元!!");
                 
                 //檢查密碼是否一致，並自訂錯誤訊息
                 if(txtPsw.value != txtPswCheck.value || txtPswCheck.value == '')
-                    txtPswCheck.setCustomValidity("密碼不一致!!");
+                    txtPswCheck._________("密碼不一致!!");
 
                 //檢查表單是否有錯誤
                 console.log(myForm.checkValidity());
-                if (myForm.checkValidity()) {
+                if (myForm._________()) {
                     alert("全部驗證通過");
                     myForm.submit(); //如果表單驗證都正確就直接Submit
                     return;

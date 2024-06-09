@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>01-Notification事件</h1>
+        <h1>01-Notification事件-練習</h1>
         <hr>
  
         <div>
@@ -45,25 +45,17 @@
                 };
                 const notification = new Notification('點我有驚喜!', options);
                 
-                // 绑定通知事件 - 點擊通知
-                notification.onclick = function() {
-                    console.log('Notification clicked!');
-                    window.open('https://www.google.com');
-                    //或其他js指令
-                };
+                // 通知點擊 - click事件
+                
+                
+                // 通知顯示 - show事件
 
-                /* notification.onshow = function() {
-                    console.log('Notification shown!');
-                };
+                
+                // 通知關閉 - close事件
 
-                notification.onclose = function() {
-                    console.log('Notification closed!');
-                };
-
-                notification.onerror = function(event) {
-                    console.error('Notification error:', event);
-                }; */
-
+                
+                // 通知發生錯誤 - error事件
+ 
             }
             
         </script>

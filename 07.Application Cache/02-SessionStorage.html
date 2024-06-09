@@ -34,12 +34,14 @@
                 if (txtName.value == "") {
                     alert("請輸入姓名");
                 } else {
+                    //設定userName的sessionStorage暫存
                     sessionStorage.setItem('userName', txtName.value);
                     alert("已暫存姓名");
                 }
             }
 
             function getCache() {
+                //取得userName的sessionStorage暫存
                 const userName = sessionStorage.getItem('userName');
                 if (userName == null) {
                     alert("未設置暫存姓名");
@@ -49,6 +51,7 @@
             }
 
             function clearCache() {
+                //清除userName的sessionStorage暫存
                 sessionStorage.clear();
                 alert("已清除暫存");
             }

@@ -9,36 +9,42 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-        <!--引用jquery.signature.min.js-->
+        <style>
+            #draggable { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
+            #droppable { width: 150px; height: 150px; padding: 0.5em; float: left; margin: 10px; }
+        </style>
     </head>
 
     <body class="p-4">
 
-        <h1>05-應用：線上簽名</h1>
+        <h1>02b-jQuery Droppable-練習</h1>
         <hr>
  
         <div>
-            <div id="sig" style="width: 100%; height: 300px; border: 1px solid gray;"></div>
-            <p class="mt-2">
-                <button class="btn btn-secondary btn-sm" id="clear">清除</button> 
-                <button class="btn btn-secondary btn-sm" id="json">To JSON</button>
-                <button class="btn btn-secondary btn-sm" id="svg">To SVG</button>
-            </p>
+            <div id="draggable" class="ui-widget-content">
+                <p>我可以移動</p>
+            </div>
+            <div id="droppable" class="ui-widget-header">
+                <p>來</p>
+            </div>
         </div>
-
+        
         <script>
+            
             $(function() {
-                //定義簽名物件
-                $('#clear').click(function() {
-                    //清除
+
+                // 設定 draggable 物件
+                $("#draggable")._________();
+
+                // 設定 droppable 物件
+                $("#droppable")._________({ 
+                    drop: function(event, ui) {
+                        $(this).addClass("ui-state-highlight").find("p").html("有東西放上來了!");
+                    }
                 });
-                $('#json').click(function() {
-                    //轉JSON
-                });
-                $('#svg').click(function() {
-                    //轉SVG
-                });
+                
             });
+
         </script>
 
     </body>

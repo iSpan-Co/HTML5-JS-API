@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>02-互動訊息</h1>
+        <h1>02-互動訊息-練習</h1>
         <hr>
  
         <div class="row">
@@ -49,28 +49,28 @@
             const result = document.querySelector('#result');
             const send = document.querySelector('#send');
 
-            //建立WebSocket連線
-            const socket = new WebSocket("https://localhost:7188/Ws1/chatWs");
+            //建立WebSocket連線 https://localhost:7188/Ws1/chatWs
+            const socket = new _________("_________");
       
                 //連線建立成功
-                socket.onopen = (event) => {               
+                socket._________ = (event) => {               
                     showMessage("連線成功");
                 };      
 
                 //接收WebSocket傳送過來的資料
-                socket.onmessage = (event) => {
+                socket._________ = (event) => {
                     console.log(event.data);      
                     showMessage(event.data);
                 };
 
                 //關閉WebSocket連線
-                socket.onclose = (event) => {
+                socket._________ = (event) => {
                     alert('關閉錯誤: ' + event.toString());
                     console.log(event);
                 };
 
                 //WebSocket連線發生錯誤
-                socket.onerror = (error) =>  {
+                socket._________ = (error) =>  {
                     alert('連線錯誤: ' + error.toString());
                     console.error(event);
                 };
@@ -82,7 +82,7 @@
                         message: txtMsg.value
                     }
                     //傳送JSON格式的資料
-                    socket.send(JSON.stringify(data));
+                    socket._________(JSON.stringify(data));
                 });
 
                 //顯示訊息

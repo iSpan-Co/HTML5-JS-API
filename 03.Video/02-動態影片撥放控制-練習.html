@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>01-Video</h1>
+        <h1>02-動態影片撥放控制-練習</h1>
         <hr>
 
         <!--
@@ -24,20 +24,31 @@
             loop：循環撥放影片
         -->
 
-        <video>
+        <video id="videoPlayer" width="300">
             <source src="video/bunny.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
 
-        <video controls poster="image/img01.jpg"  width="300">
-            <source src="video/bunny.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        
-        <video id="myVideo" controls loop autoplay width="300">
-            <source src="video/duck.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <button class="btn btn-primary" onclick="playVideo()">播放</button>
+        <button class="btn btn-warning" onclick="pauseVideo()">暫停</button>
+
+        <script>
+
+            const video = document.querySelector('#videoPlayer');
+
+            // 變更音樂檔案路徑
+            //video.setAttribute('src', 'video/duck.mp4');
+
+            function playVideo() {
+                // 播放影片
+                video._________();
+            }
+            
+            function pauseVideo() {
+                // 暫停影片
+                video._________();
+            }
+  
+        </script>
 
     </body>
 </html>

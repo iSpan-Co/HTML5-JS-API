@@ -21,19 +21,20 @@
         <script>
 
             const mySvg = document.querySelector('#svg1');
-            const datas =[90, 50, 270, 180, 50, 60, 320, 100, 190, 250];
+            const datas = [90, 50, 270, 180, 50, 60, 320, 100, 190, 250];
             let w = 50, h = 0, x = 20;
             const domRect = mySvg.getBoundingClientRect()
             const y = domRect.height - 2
             const xmlns = "http://www.w3.org/2000/svg";
             for (let i = 0; i < datas.length; i++) {
                 h = datas[i];
+                // 定義長條圖的矩形
                 const elem = document.createElementNS(xmlns, "rect");
-                elem.setAttributeNS(null, "x", x);
-                elem.setAttributeNS(null, "y", y - h);
-                elem.setAttributeNS(null, "width", w);
-                elem.setAttributeNS(null, "height", h);
-                elem.setAttributeNS(null, "fill", "gray");
+                elem.setAttribute("x", x);  // 設定矩形左上角的x座標
+                elem.setAttribute("y", y - h);  // 設定矩形左上角的y座標
+                elem.setAttribute("width", w);  // 設定矩形寬度
+                elem.setAttribute("height", h);  // 設定矩形高度
+                elem.setAttribute("fill", "gray");  // 設定矩形顏色
                 mySvg.appendChild(elem);
                 x = x + w + 10;
             }

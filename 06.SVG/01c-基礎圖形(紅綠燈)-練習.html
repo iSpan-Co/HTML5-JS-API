@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
+        <style>
+            @keyframes blink {
+                0% { opacity: 1; }
+                50% { opacity: 0; }
+                100% { opacity: 1; }
+            }
+            
+            .blink {
+                animation: blink 1s infinite;
+            }
+        </style>
+    
+    </head>
+
+    <body class="p-4">
+
+        <h1>01c-基礎圖形(紅綠燈)-練習</h1>
+        <hr>
+ 
+        <svg id="svg1" style="border: 1px solid gray; width:400px; height: 200px;">
+            <circle cx="100" cy="100" r="50" fill="#276103" />
+            <circle cx="300" cy="100" r="50" fill="#276103" />
+            <rect x="100" y="50" width="200" height="100" fill="#276103" />
+            <circle cx="110" cy="100" r="35" fill="red" />
+            <circle cx="200" cy="100" r="35" fill="orange" class="blink" />
+            <circle cx="290" cy="100" r="35" fill="green" />
+        </svg>
+
+ 
+        <svg id="svg2" style="border: 1px solid gray; width:400px; height: 200px;">
+            <circle cx="100" cy="100" r="50" fill="#276103" />
+            <circle cx="300" cy="100" r="50" fill="#276103" />
+            <rect x="100" y="50" width="200" height="100" fill="#276103" />
+            <circle id="r" cx="110" cy="100" r="35" fill="#780202" />
+            <circle id="o" cx="200" cy="100" r="35" fill="#8e5a00" />
+            <circle id="g" cx="290" cy="100" r="35" fill="#2f6c00" />
+        </svg>
+
+        <script>
+
+            const circleR = document.getElementById('r');
+            const circleO = document.getElementById('o');
+            const circleG = document.getElementById('g');
+
+            startTrafficLightCycle();
+            
+            function startTrafficLightCycle() {
+
+                //綠燈亮3秒後，轉橘燈
+                circleG.style.fill = "#56c500";
+                var intervalG = setInterval(() => {
+                    circleG.style.fill = "#2f6c00";
+                    clearInterval(intervalG);
+
+                    //橘燈閃爍3秒後，轉紅燈
+                    circleO.style.fill = "orange";
+                    circleO.classList.add("blink");
+                    var intervalO = setInterval(() => {
+                        circleO.style.fill = "#8e5a00";
+                        circleO.classList.remove("blink");
+                        clearInterval(intervalO);
+
+                        //紅亮3秒後，轉綠燈
+                        circleR.style.fill = "red";
+                        var intervalR = setInterval(() => {
+                            circleR.style.fill = "#780202";
+                            clearInterval(intervalR);
+                             startTrafficLightCycle();
+                        }, 3000);
+
+                    }, 3000);
+
+                }, 3000);
+            }
+
+        </script>
+
+    </body>
+</html>

@@ -13,10 +13,9 @@
 
     <body class="p-4">
 
-        <h1>01a-基礎繪圖(矩形)</h1>
+        <h1>01f-基礎繪圖(長條圖)-練習</h1>
         <hr>
                    
-        <!-- 建立一個canvas元素 640x400px，並設定border-->
         <canvas style="border: 1px solid gray;" width="640" height="400">
             您的瀏覽器不支援canvas
         </canvas>
@@ -28,21 +27,20 @@
             //渲染繪圖物件
             const ctx = canvas.getContext("2d");
 
-            //定義樣式
-            ctx.fillStyle = "red";
-            // 畫一個填滿的矩形
-            ctx.fillRect(30, 30, 100, 100);
-
-            // 畫一個矩形的邊框
-            ctx.strokeStyle = "green";
-            ctx.lineWidth = 10;
-            ctx.strokeRect(170, 30, 100, 100);
-
-            // 畫一個填滿的矩形，然後清除指定的矩形區域
-            ctx.fillStyle = "#ffff00";
-            ctx.fillRect(310, 30, 100, 100); 
-            ctx.clearRect(340, 60, 40, 40);
-
+            const datas = [90, 50, 270, 180, 50, 60, 320, 100, 190, 250];
+            
+            var w = 50; //矩形寬度
+            var x = 20; //矩形左上角x座標
+            var y = canvas.height;  //矩形左上角y座標
+            ctx.fillStyle = "gray";
+            for (var i = 0; i < datas.length; i++) {
+                //取得長條高度
+                h = datas[i];
+                //繪製矩形(x座標, y座標, 寬度, 高度)
+                ctx._________(x, y - h, w, h);
+                //下一個x座標 = 前一個x座標 + 長條寬度 + 間隔
+                x = x + w + 10;
+            }
 
         </script>
 

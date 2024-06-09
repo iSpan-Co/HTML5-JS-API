@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>01-建立WS連線</h1>
+        <h1>01-建立WS連線-練習</h1>
         <hr>
  
         <div class="row">
@@ -53,27 +53,27 @@
 
             function openWs() {
                 //建立WebSocket物件wss://echo.websocket.org/
-                socket = new WebSocket("wss://echo.websocket.org/");
-
+                socket = new _________("_________");
+                
                 //設定WebSocket事件
-                socket.onopen = (event) => {
+                socket._________ = (event) => {
                     status.innerHTML = "已連線";
                 }
-                
+
                 //接收WebSocket資料
-                socket.onmessage = (event) => {
-                    result.innerHTML += `來自於 SocketServer 的資料： ${event.data}<br>`;
+                socket._________ = (event) => {
+                    result.innerHTML += `來自於 SocketServer 的資料： ${_________}<br>`;
                 }
             }
 
             //傳送訊息
             function send() {
-                socket.send(txtMsg.value);
+                socket._________(_________);
             }
 
             //關閉WebSocket連線
             function closeWs() {
-                socket.close();
+                socket._________();
                 status.innerHTML = "關閉連線";
             }
 

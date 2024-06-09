@@ -71,9 +71,10 @@
             //拖曳開始與結束綁定特定元素
             item.addEventListener('dragstart', dragStart);
             item.addEventListener('dragend', dragEnd);
+            
             function dragStart(e) {
-                //取得拖曳的元素資料
                 result.innerHTML = "dragStart";
+                //取得拖曳的元素資料
                 e.dataTransfer.setData('text/plain', e.target.id);
                 setTimeout(() => {
                     //拖曳時隱藏元素
@@ -82,6 +83,7 @@
             }
 
             function dragEnd(e) {
+                //取消預設行為
                 e.preventDefault();
                 result.innerHTML = "dragEnd";
                 e.target.classList.remove('hide');
@@ -91,34 +93,40 @@
             //為所有的box增加拖曳觸發及放下事件
             const boxes = document.querySelectorAll('.box');
             boxes.forEach(box => {
-                box.addEventListener('dragenter', dragEnter)
-                box.addEventListener('dragover', dragOver);
-                box.addEventListener('dragleave', dragLeave);
-                box.addEventListener('drop', drop);
+                box.addEventListener('dragenter', dragEnter); //拖曳進入
+                box.addEventListener('dragover', dragOver); //拖曳進經過
+                box.addEventListener('dragleave', dragLeave); //拖曳進離開
+                box.addEventListener('drop', drop); //拖曳進放下
             });
 
             //進入
             function dragEnter(e) {
+                //取消預設行為
                 e.preventDefault();
+                //為目標元素加上類別
                 e.target.classList.add('drag-over');
                 result.innerHTML = "進入" + e.target.getAttribute('data-id');
             }
 
             //經過
             function dragOver(e) {
+                //取消預設行為
                 e.preventDefault();
+                //為目標元素加上類別
                 e.target.classList.add('drag-over');
                 //result.innerHTML = "經過" + e.target.getAttribute('data-id');
             }
 
             //離開
             function dragLeave(e) {
+                //為目標元素移除類別
                 e.target.classList.remove('drag-over');
                 result.innerHTML = "離開" + e.target.getAttribute('data-id');
             }
 
             //放下
             function drop(e) {
+                //為目標元素移除類別
                 result.innerHTML = "放下" + e.target.getAttribute('data-id');
                 e.target.classList.remove('drag-over');
 
@@ -128,7 +136,6 @@
 
                 //對目標區塊增加元素
                 e.target.appendChild(draggable);
-
             }
 
         </script>

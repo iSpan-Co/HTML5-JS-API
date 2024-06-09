@@ -13,10 +13,9 @@
 
     <body class="p-4">
 
-        <h1>01a-基礎繪圖(矩形)</h1>
+        <h1>01d-基礎繪圖(圖片)-練習</h1>
         <hr>
                    
-        <!-- 建立一個canvas元素 640x400px，並設定border-->
         <canvas style="border: 1px solid gray;" width="640" height="400">
             您的瀏覽器不支援canvas
         </canvas>
@@ -28,21 +27,24 @@
             //渲染繪圖物件
             const ctx = canvas.getContext("2d");
 
-            //定義樣式
-            ctx.fillStyle = "red";
-            // 畫一個填滿的矩形
-            ctx.fillRect(30, 30, 100, 100);
+            //建立圖片物件
+            var img = new Image();
+            img.src = "image/img01.jpg";
+            img.onload = () => {
 
-            // 畫一個矩形的邊框
-            ctx.strokeStyle = "green";
-            ctx.lineWidth = 10;
-            ctx.strokeRect(170, 30, 100, 100);
+                //載入圖片，以原尺寸的方式繪製到canvas上
+                //drawImage(image, dx, dy)
+                //ctx._________(img, 0, 0);
 
-            // 畫一個填滿的矩形，然後清除指定的矩形區域
-            ctx.fillStyle = "#ffff00";
-            ctx.fillRect(310, 30, 100, 100); 
-            ctx.clearRect(340, 60, 40, 40);
+                //載入圖片，放大縮小後繪製到canvas上
+                //drawImage(image, dx, dy, dWidth, dHeight);
+                //ctx._________(img, 0, 0, 200, 200);
 
+                //載入圖片後進行裁切，再放大縮小後繪製到canvas上
+                //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+                ctx._________(img, 50, 50, 200, 200, 50, 50, 300, 300);
+
+            };
 
         </script>
 

@@ -13,32 +13,29 @@
 
     <body class="p-4">
 
-        <h1>01f-基礎繪圖(長條圖)</h1>
+        <h1>01b-基礎圖形(長條圖)-練習</h1>
         <hr>
-                   
-        <canvas style="border: 1px solid gray;" width="640" height="400">
-            您的瀏覽器不支援canvas
-        </canvas>
+ 
+        <svg id="svg1" style="border: 1px solid gray; width:640px; height: 400px;"></svg>
 
         <script>
 
-            const canvas = document.querySelector("canvas");
-
-            //渲染繪圖物件
-            const ctx = canvas.getContext("2d");
-
+            const mySvg = document.querySelector('#svg1');
             const datas = [90, 50, 270, 180, 50, 60, 320, 100, 190, 250];
-           
-            var w = 50; //矩形寬度
-            var x = 20; //矩形左上角x座標
-            var y = canvas.height;  //矩形左上角y座標
-            ctx.fillStyle = "gray";
-            for (var i = 0; i < datas.length; i++) {
-                //取得長條高度
+            let w = 50, h = 0, x = 20;
+            const domRect = mySvg.getBoundingClientRect()
+            const y = domRect.height - 2
+            const xmlns = "http://www.w3.org/2000/svg";
+            for (let i = 0; i < datas.length; i++) {
                 h = datas[i];
-                //繪製矩形(x座標, y座標, 寬度, 高度)
-                ctx.fillRect(x, y - h, w, h);
-                //下一個x座標 = 前一個x座標 + 長條寬度 + 間隔
+                // 定義長條圖的矩形
+                const elem = document.createElementNS(xmlns, "_________");
+                elem.setAttribute("_________", x);  // 設定矩形左上角的x座標
+                elem.setAttribute("_________", y - h);  // 設定矩形左上角的y座標
+                elem.setAttribute("_________", w);  // 設定矩形寬度
+                elem.setAttribute("_________", h);  // 設定矩形高度
+                elem.setAttribute("_________", "gray");  // 設定矩形顏色
+                mySvg.appendChild(elem);
                 x = x + w + 10;
             }
 

@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>04-Bootstrap驗證</h1>
+        <h1>04-Bootstrap驗證-練習</h1>
         <hr>
 
         <div class="col-md-12">
@@ -110,16 +110,17 @@
         <script>
 
             // bootstrap 表單驗證事件
-            const form = document.querySelector('.needs-validation')
+            /* const form = document.querySelector('.needs-validation')
             form.addEventListener('submit', event => {
                 if (!form.checkValidity()) {
                     event.preventDefault()
                     event.stopPropagation()
                 }
                 form.classList.add('was-validated')
-            }, false);
+            }, false); */
 
-            const txtMail = document.querySelector('#txtMail');
+            //自訂Mail驗證事件
+            /* const txtMail = document.querySelector('#txtMail');
             txtMail.addEventListener('blur', function() {
                 const inValidObj = txtMail.closest('div').querySelector('.invalid-feedback');
                 var errorMsg = "";
@@ -134,7 +135,7 @@
                 }
                 txtMail.setCustomValidity(errorMsg);
                 inValidObj.innerHTML = errorMsg;
-            }); 
+            }); */ 
 
         </script>
 

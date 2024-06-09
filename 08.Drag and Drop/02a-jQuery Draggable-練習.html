@@ -10,39 +10,46 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
         <style>
-            #draggable { width: 100px; height: 100px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; }
-            #droppable { width: 150px; height: 150px; padding: 0.5em; float: left; margin: 10px; }
+            .box { width: 150px; height: 150px; padding: 0.5em; }
         </style>
     </head>
 
     <body class="p-4">
 
-        <h1>02b-jQuery Droppable</h1>
+        <h1>02a-jQuery Draggable-練習</h1>
         <hr>
  
         <div>
-            <div id="draggable" class="ui-widget-content">
-                <p>我可以移動</p>
+
+            <div id="draggable" class="ui-widget-content box">
+                <p>我可以隨意拉</p>
             </div>
-            <div id="droppable" class="ui-widget-header">
-                <p>來</p>
+ 
+            <div id="containment-wrapper" style="width: 300px; height:300px; border:2px solid #ccc; padding: 10px;">
+                <div id="draggableWithin" class="ui-widget-content box">
+                    <p>我只能在特定範圍</p>
+                </div>
             </div>
+
+            <div id="draggableSnap" class="ui-widget-content box">
+                <p>我會吸住別的draggable邊框</p>
+            </div>
+               
         </div>
         
         <script>
             
             $(function() {
 
-                // 設定 draggable 物件
-                $("#draggable").draggable();
+                //隨意拉
+                $("#draggable")._________();
 
-                // 設定 droppable 物件
-                $("#droppable").droppable({ 
-                    drop: function(event, ui) {
-                        $(this).addClass("ui-state-highlight").find("p").html("有東西放上來了!");
-                    }
-                });
-                
+                //特定範圍 containment
+                $("#draggableWithin")._________({ _________: "parent" });
+
+                //有磁性 snap
+                $("#draggableSnap")._________({ _________: true });
+
             });
 
         </script>

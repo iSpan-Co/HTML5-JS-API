@@ -150,12 +150,14 @@
                 product.innerHTML = title + ', ' + price;
                 myCart.appendChild(product);
 
+                // 將物件加入cacheCart陣列
                 var item = {
                     name: title,
                     price: price
                 };
                 cacheCart.push(item);
 
+                // 物件轉換成Json字串
                 const productString = JSON.stringify(cacheCart);
 
                 // 放到localStorage

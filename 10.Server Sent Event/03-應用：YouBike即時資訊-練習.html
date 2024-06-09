@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    </head>
+
+    <body class="p-4">
+
+        <h1>03-應用：YouBike即時資訊-練習</h1>
+        <hr>
+ 
+        <div class="row mt-5">
+            <h1>系統時間：<span class="badge bg-secondary" id="nowTime">00:00:00</span></h1>
+        </div>
+          
+        <div class="row mt-2" id="info"></div>
+
+        <script>
+
+            const nowTime = document.querySelector('#nowTime');
+            const infoDiv = document.querySelector('#info');
+            let source;
+
+            startConn();
+
+            function startConn() {
+                //建立EventSource物件
+                source = new _________('_________'); 
+                //接收到訊息時觸發事件
+                 source.addEventListener('_________', function(event) {
+                    console.log('資料id:', event.lastEventId);
+                    console.log('資料id:',  event.data);
+                    nowTime.innerHTML = event._________;
+                }, false);
+
+                source.addEventListener('_________', function(event) {
+                    console.log('資料id:', event.lastEventId);
+                    const data = JSON.parse(event._________);
+                    //console.log(data);
+                    infoDiv.innerHTML = "";
+                    for(var i = 0 ; i < 20 ; i++){
+                        const name = data[i].sna;
+                        const addr = data[i].ar;
+                        const infoTime = data[i].infoTime;
+                        const rentBikes = data[i].available_rent_bikes;
+                        const returnBikes = data[i].available_return_bikes;
+                        const info  = `
+                            <div class="col-md-4 mb-3">
+                                <div class="card bg-warning">
+                                    <div class="card-header">${name}</div>
+                                    <div class="card-body">
+                                        <h3 id="stockPrice">可借車輛：${rentBikes}</h3>
+                                        <h3 id="stockPrice">可停空位：${returnBikes}</h3>
+                                        <h6 id="stockPrice" class="mb-0">${addr}</h6>
+                                    </div>
+                                    <div class="card-footer">${"資料時間：" + infoTime}</div>
+                                </div>
+                            </div>
+                        `;
+                        infoDiv.innerHTML += info;
+                    }
+                }, false);
+
+                source.onopen = event => {
+                    console.log('連線中');
+                }
+            }
+
+        </script>
+
+    </body>
+</html>

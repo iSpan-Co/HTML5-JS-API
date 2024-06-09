@@ -49,11 +49,11 @@
 
     <body class="p-4">
 
-        <h1>01-事件觸發</h1>
+        <h1>01-事件觸發-練習</h1>
         <hr>
 
         <div class="box" data-id="1">
-            <div class="item" id="item1" draggable="true"></div>
+            <div class="item" id="item1" _________="true"></div>
             <!-- <img class="item" id="item1" src="image/img01.jpg" width="70" /> -->
         </div>
 
@@ -69,74 +69,64 @@
             const result = document.querySelector('#result');
 
             //拖曳開始與結束綁定特定元素
-            item.addEventListener('touchstart', touchStart);
-            item.addEventListener('touchend', touchEnd);
-            item.addEventListener('touchcancel', touchCancel);
-            item.addEventListener('touchmove', touchMove);
+            item.addEventListener('_________', dragStart);
+            item.addEventListener('_________', dragEnd);
 
-            function touchStart(e) {
+            function dragStart(e) {
+                result.innerHTML = "dragStart";
                 //取得拖曳的元素資料
-                /* result.innerHTML = "touchstart";
-                e.dataTransfer.setData('text/plain', e.target.id);
+                e._________('text/plain', e.target.id);
                 setTimeout(() => {
                     //拖曳時隱藏元素
                     e.target.classList.add('hide');
-                }, 0); */
-                console.log("touchStart");
+                }, 0);
             }
 
-            function touchEnd(e) {
+            function dragEnd(e) {
+                //取消預設行為
                 e.preventDefault();
-               /*  result.innerHTML = "touchend";
-                e.target.classList.remove('hide'); */
-                console.log("touchEnd");
+                result.innerHTML = "dragEnd";
+                e.target.classList.remove('hide');
             }
 
-            function touchCancel(e) {
-                e.preventDefault();
-                /* result.innerHTML = "touchend";
-                e.target.classList.remove('hide'); */
-                console.log("touchCancel");
-            }
 
-            function touchMove(e) {
-                e.preventDefault();
-                /* result.innerHTML = "touchend";
-                e.target.classList.remove('hide'); */
-                console.log("touchMove");
-            }
-
-          /*   //為所有的box增加拖曳觸發及放下事件
+            //為所有的box增加拖曳觸發及放下事件
             const boxes = document.querySelectorAll('.box');
             boxes.forEach(box => {
-                //box.addEventListener('dragenter', dragEnter)
-                box.addEventListener('touchmove', dragOver);
-                //box.addEventListener('dragleave', dragLeave);
-                box.addEventListener('touchcancel', drop);
+                box.addEventListener('_________', dragEnter); //拖曳進入
+                box.addEventListener('_________', dragOver); //拖曳進經過
+                box.addEventListener('_________', dragLeave); //拖曳進離開
+                box.addEventListener('_________', drop); //拖曳進放下
             });
 
             //進入
             function dragEnter(e) {
-                e.preventDefault();
-                e.target.classList.add('drag-over');
+                //取消預設行為
+                _________
+                //為目標元素加上類別
+                e._________('drag-over');
                 result.innerHTML = "進入" + e.target.getAttribute('data-id');
             }
 
             //經過
             function dragOver(e) {
+                //取消預設行為
                 e.preventDefault();
+                //為目標元素加上類別
                 e.target.classList.add('drag-over');
                 //result.innerHTML = "經過" + e.target.getAttribute('data-id');
             }
 
             //離開
             function dragLeave(e) {
-                e.target.classList.remove('drag-over');
+                //為目標元素移除類別
+                e._________('drag-over');
                 result.innerHTML = "離開" + e.target.getAttribute('data-id');
             }
 
             //放下
             function drop(e) {
+                //為目標元素移除類別
                 result.innerHTML = "放下" + e.target.getAttribute('data-id');
                 e.target.classList.remove('drag-over');
 
@@ -146,9 +136,8 @@
 
                 //對目標區塊增加元素
                 e.target.appendChild(draggable);
-
             }
- */
+
         </script>
 
     </body>

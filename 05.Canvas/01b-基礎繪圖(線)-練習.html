@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>01b-基礎繪圖(線)</h1>
+        <h1>01b-基礎繪圖(線)-練習</h1>
         <hr>
                    
         <canvas style="border: 1px solid gray;" width="640" height="400">
@@ -30,18 +30,18 @@
             //畫一條線 ===============================================================
             
             //開始一段新的路徑
-            ctx.beginPath();  
+            ctx._________();  
 
             //畫筆移置x,y
-            ctx.moveTo(50,50);   
+            ctx._________(50,50);   
 
             //從上一個位置移到x,y
-            ctx.lineTo(450,50); 
+            ctx._________(450,50); 
 
             //畫線
             ctx.lineWidth = 5;
             ctx.strokeStyle = "green"; 
-            ctx.stroke();        
+            ctx._________();        
 
 
             //畫斑馬線 ===============================================================
@@ -50,10 +50,10 @@
             ctx.lineWidth = 30;
             ctx.strokeStyle = "black"; 
             for (i = 1; i < 10; i++) {
-                ctx.beginPath();  
-                ctx.moveTo(xPoint * i, 100);    
-                ctx.lineTo(xPoint * i, 200);
-                ctx.stroke();   
+                ctx._________();  
+                ctx._________(xPoint * i, 100);    
+                ctx._________(xPoint * i, 200);
+                ctx._________();   
             } 
 
 
@@ -63,16 +63,16 @@
             ctx.moveTo(30,250);    
             ctx.lineTo(30,350); 
             ctx.lineTo(155,250);
-            ctx.closePath();
+            ctx._________();
 
             //依照路徑畫線
             ctx.lineWidth = 5;
             ctx.strokeStyle = "red"; 
-            ctx.stroke();        
+            ctx._________();        
 
             //依照閉合區域填滿
             ctx.fillStyle = "green";
-            ctx.fill();
+            ctx._________();
 
         </script>
 

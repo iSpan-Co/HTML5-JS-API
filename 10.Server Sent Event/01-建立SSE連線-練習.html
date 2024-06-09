@@ -13,7 +13,7 @@
 
     <body class="p-4">
 
-        <h1>01-建立SSE連線</h1>
+        <h1>01-建立SSE連線-練習</h1>
         <hr>
  
         <div>
@@ -32,23 +32,23 @@
 
             function startClock() {
                 //建立EventSource物件
-                source = new EventSource('https://localhost:7188/Sse/getServerTime'); 
+                source = new _________('https://localhost:7188/Sse/getServerTime'); 
                 //接收到訊息時觸發事件
-                source.onmessage = event => {
+                source._________ = event => {
                     console.log('資料id:', event.lastEventId);
-                    console.log('資料:', event.data);
+                    console.log('資料:', event._________);
                     //顯示伺服器端的時間
-                    serverClock.innerHTML = event.data;
+                    serverClock.innerHTML = event._________;
                 }
-                //連線成功時觸發事件
-                source.onopen = event => {
+                source._________ = event => {
+                    //連線成功時觸發事件
                     console.log('連線中');
                 }
             }
 
             function stopClock() {
                 //關閉連線
-                source.close();
+                source._________();
                 console.log('停止');
             }
 
