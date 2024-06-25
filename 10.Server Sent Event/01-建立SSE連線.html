@@ -31,18 +31,24 @@
             let source;
 
             function startClock() {
-                //建立EventSource物件
+                //建立EventSource物件，連線至伺服器端取得時間資料 (https://localhost:7188/Sse/getServerTime)
                 source = new EventSource('https://localhost:7188/Sse/getServerTime'); 
-                //接收到訊息時觸發事件
-                source.onmessage = event => {
-                    console.log('資料id:', event.lastEventId);
-                    console.log('資料:', event.data);
-                    //顯示伺服器端的時間
-                    serverClock.innerHTML = event.data;
-                }
-                //連線成功時觸發事件
+
+                //監聽連線成功時觸發事件
                 source.onopen = event => {
                     console.log('連線中');
+                }
+                
+                //另一種寫法
+                //source.addEventListener("open", (event) => { });
+
+                //監聽接收到訊息時觸發事件
+                source.onmessage = event => {
+                    console.log(event);
+                    console.log('資料id:', event.lastEventId);
+                    console.log('資料:', event.data);
+                    //並顯示伺服器端的時間
+                    serverClock.innerHTML = event.data;
                 }
             }
 

@@ -33,11 +33,12 @@
         <div class="row">
             <div class="col-12 mb-3">
                 <div class="col-md-4">
+                    <!-- 新增一個file input元素 -->
                     <input id="myFile" type="file" class="form-control" />
                 </div>
             </div>
             <div class="col-4 mb-3">
-                <h5>讀取圖片方法1 DataURI</h5>
+                <h5>讀取圖片方法1 DataURL</h5>
                 <div id="fileContent1"></div>
             </div>
             <div class="col-4 mb-3">
@@ -53,21 +54,31 @@
             const myFile = document.querySelector("#myFile")
 
             //監聽檔案元素發生改變事件
-            myFile.addEventListener("change", event=> fileViewer(event.target.files[0]));
+            myFile.addEventListener("change", function(event){
+                console.log(event.target.files[0]);
+                //取得檔案物件
+                fileViewer(event.target.files[0]);
+            });
 
             //當檔案元素觸發改變事件時
             function fileViewer(theFile) {
 
-                //讀取圖片方法1 DataURI - 讀取圖片的base64編碼(速度較慢，須等load完成)
-                //透過FileReader物件中readAsDataURL()讀取theFile的圖
+                //讀取圖片方法1 DataURL - 讀取圖片的base64編碼(速度較慢，須等load完成)
+
+                //宣告一個FileReader物件
                 const reader = new FileReader();
+
+                //透過FileReader物件中readAsDataURL()讀取theFile的圖
                 reader.readAsDataURL(theFile);
+
+                //監聽load事件，且需在load事件完成後，再讀取result屬性
                 reader.addEventListener("load",event => {
                     console.log("讀取好了", event.target.result); 
                     fileContent1.innerHTML =  `<img class="w-100" src="${event.target.result}" />`;
                 });
 
                 //讀取圖片方法2 ObjectURL - 以圖片位置進行載入(載入速度較快，有載入效果)
+                //使用createObjectURL()方法，將theFile物件轉換成一個URL字串
                 const objectURI = window.URL.createObjectURL(theFile);
                 fileContent2.innerHTML =  `<img class="w-100" src="${objectURI}" />`;
 

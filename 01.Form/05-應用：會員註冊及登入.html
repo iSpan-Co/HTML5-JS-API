@@ -155,6 +155,7 @@
 
         <script>
 
+            //bootstrap帳號註冊表單驗證
             const registerForm = document.querySelector('#registerForm')
             registerForm.addEventListener('submit', event => {
                 if (!registerForm.checkValidity()) {
@@ -163,9 +164,10 @@
                 } else {
                     alert('註冊成功');
                 }
-                registerForm.classList.add('was-validated')
+                registerForm.classList.add('was-validated');
             }, false);
            
+            //bootstrap帳號登入表單驗證
             const signForm = document.querySelector('#signForm')
             signForm.addEventListener('submit', event => {
                 if (!signForm.checkValidity()) {
@@ -174,7 +176,7 @@
                 } else {
                     alert('登入成功');
                 }
-                signForm.classList.add('was-validated')
+                signForm.classList.add('was-validated');
             }, false);
            
 

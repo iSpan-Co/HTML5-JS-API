@@ -33,6 +33,7 @@
         <div class="row">
             <div class="col-12 mb-3">
                 <div class="col-md-3">
+                    <!-- 新增一個file input元素 -->
                     <input id="myFile" type="file" class="form-control" />
                 </div>
             </div>
@@ -47,18 +48,24 @@
             const myFile = document.querySelector("#myFile")
 
             //監聽檔案元素發生改變事件
-            myFile.addEventListener("change", event=> fileViewer(event.target.files[0]));
+            myFile.addEventListener("change", function(event){
+                console.log(event.target.files[0]);
+                //取得檔案物件
+                fileViewer(event.target.files[0]);
+            });
 
             //當檔案元素觸發改變事件時
             function fileViewer(theFile) {
-                //透過FileReader物件中readAsText()讀取theFile的文字內容
+                //宣告一個FileReader物件
                 const reader = new FileReader();
+                
+                //透過FileReader物件的readAsText()方法，讀取theFile的文字內容
                 reader.readAsText(theFile, "utf-8");  //編碼方式 
 
                 //沒有完成load前，取result屬性，會回傳undefined
                 console.log("正在讀取中", event.target.result); 
 
-                //需在load事件完成後，再讀取result屬性
+                //監聽load事件，且需在load事件完成後，再讀取result屬性
                 reader.addEventListener("load",event => {
                     console.log("讀取好了", event.target.result); 
                     fileContent.innerHTML = event.target.result;

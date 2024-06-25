@@ -20,17 +20,18 @@
             <form class="row g-3" id="myForm">
                 <div class="col-md-12">
                     <label for="txtAccount" class="form-label">帳號</label>
-                    <input type="text" class="form-control" id="txtAccount" required>
+                    <!--建立一個input元素，type="text"，class="form-control"，id="txtAccount"，並且加入required屬性-->
                     <small class="text-danger" data-id="txtAccount"></small>
                 </div>
                 <div class="col-md-12">
                     <label for="txtPsw" class="form-label">密碼</label>
-                    <input type="password" class="form-control" id="txtPsw" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}" required>
+                    <!--建立一個input元素，type="password"，class="form-control"，id="txtPsw"，並且加入required屬性
+                        且需設置pattern屬性規則：必須包含英文大寫、小寫、特殊符號及數字，且至少10字元 (?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,} -->
                     <small class="text-danger" data-id="txtPsw"></small>
                 </div>
                 <div class="col-md-12">
                     <label for="txtPswCheck" class="form-label">確認密碼</label>
-                    <input type="password" class="form-control" id="txtPswCheck">
+                    <!--建立一個input元素，type="password"，class="form-control"，id="txtPswCheck"，並且加入required屬性-->
                     <small class="text-danger" data-id="txtPswCheck"></small>
                 </div>
                 <div class="col-12">
@@ -44,25 +45,23 @@
             //取消預設的驗證訊息的顯示方式
             const myForm = document.querySelector('#myForm');
             myForm.addEventListener('invalid', function (event) {
-                event.preventDefault();
+                event._________;
             }, true);
 
 
             const btnSubmit = document.querySelector('#btnSubmit');
             btnSubmit.addEventListener('click', event => {
-                event.preventDefault(); //取消Submit的預設行為
 
                 //清空錯誤提示
                 const smallTags = myForm.querySelectorAll('small');
                 smallTags.forEach(tag => {  tag.innerHTML = ''; })
 
-                //檢查密碼欄位是否一致
                 const txtPsw = document.querySelector('#txtPsw');
                 const txtPswCheck = document.querySelector('#txtPswCheck');
 
                 //清除自訂錯誤訊息
-                txtPsw.setCustomValidity("");
-                txtPswCheck.setCustomValidity("");
+                //txtPsw._________("");
+                //txtPswCheck._________("");
 
                 //檢查密碼規則是否符合，並自訂錯誤訊息
                 if(txtPsw.validity._________)
@@ -74,7 +73,7 @@
 
                 //檢查表單是否有錯誤
                 console.log(myForm.checkValidity());
-                if (myForm._________()) {
+                if (myForm._________) {
                     alert("全部驗證通過");
                     myForm.submit(); //如果表單驗證都正確就直接Submit
                     return;
@@ -84,7 +83,7 @@
                 const invalidInputs = myForm.querySelectorAll(':invalid');
                 console.log(invalidInputs);
                 
-                //顯示錯誤圖示及錯誤訊息
+                //顯示錯誤訊息
                 invalidInputs.forEach(input => {
                     const sml = document.querySelector(`small[data-id="${input.id}"]`);
                     sml.innerHTML = `<strong>${input.validationMessage}</strong>`;

@@ -33,6 +33,7 @@
         <div class="row">
             <div class="col-12 mb-3">
                 <div class="col-md-3">
+                    <!-- 新增一個file input元素 -->
                     <input id="myFile" type="file" class="form-control" />
                 </div>
             </div>
@@ -49,7 +50,11 @@
             const myFile = document.querySelector("#myFile")
 
             //監聽檔案元素發生改變事件
-            myFile.addEventListener("change", event=> getFileInfo(event.target.files[0]));
+            myFile.addEventListener("change", function(event){
+                console.log(event.target.files[0]);
+                //取得檔案物件
+                getFileInfo(event.target.files[0]);
+            });
 
             //當檔案元素觸發改變事件時
             function getFileInfo(theFile) {
@@ -57,10 +62,11 @@
                     <p>檔案名稱：${theFile.name}</p>
                     <p>檔案類型：${theFile.type}</p>
                     <p>檔案大小：${theFile.size}</p>
-                    <p>檔案最後修改時間：${formatLastModified(theFile.lastModified)}</p>
+                    <p>檔案最後修改時間：${theFile.lastModifiedDate.toLocaleString()}</p>
                 `;
                 //lastModified 屬性返回的是文件的最後修改時間，表示為從 1970 年 1 月 1 日 00:00:00 UTC 起的毫秒數。
                 console.log(theFile.lastModified); 
+                console.log(formatLastModified(theFile.lastModified));
             }
 
              //傳入毫秒，轉成 yyyy/mm/dd hh:mm:ss 回傳

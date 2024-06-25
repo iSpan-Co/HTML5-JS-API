@@ -222,10 +222,13 @@
             }
 
             function setCacheSizeAndBar() {
-                const cacheSize = localStorage.getItem('cacheDrive').length;
-                const usage = cacheSize/cacheCapacity*100;
-                progressBar.style.width = usage + "%";
-                progressTest.innerHTML = `已使用 ${Math.round(usage)} %`;
+                const cacheDrive = localStorage.getItem('cacheDrive');
+                if(cacheDrive != null) {
+                    const cacheSize = cacheDrive.length;
+                    const usage = cacheSize/cacheCapacity*100;
+                    progressBar.style.width = usage + "%";
+                    progressTest.innerHTML = `已使用 ${Math.round(usage)} %`;
+                }
             }
 
             //傳入毫秒，轉成 yyyy/mm/dd hh:mm:ss 回傳

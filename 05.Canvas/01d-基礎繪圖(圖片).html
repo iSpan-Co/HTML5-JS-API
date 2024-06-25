@@ -32,17 +32,15 @@
             img.src = "image/img01.jpg";
             img.onload = () => {
 
-                //載入圖片，以原尺寸的方式繪製到canvas上
-                //drawImage(image, dx, dy)
-                //ctx.drawImage(img, 0, 0);
-
-                //載入圖片，放大縮小後繪製到canvas上
-                //drawImage(image, dx, dy, dWidth, dHeight);
-                //ctx.drawImage(img, 0, 0, 200, 200);
+                //載入圖片後，以原尺寸的方式繪製到canvas上，位置為(0,0) drawImage(image, dx, dy)
+                ctx.drawImage(img, 0, 0);
+                
+                //載入圖片後，放大或縮小繪製到canvas上 drawImage(image, dx, dy, dWidth, dHeight);
+                ctx.drawImage(img, 0, 0, 200, 200);
 
                 //載入圖片後進行裁切，再放大縮小後繪製到canvas上
                 //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-                ctx.drawImage(img, 50, 50, 200, 200, 50, 50, 300, 300);
+                ctx.drawImage(img, 50, 50, 200, 200, 100, 50, 150, 300);
 
             };
 

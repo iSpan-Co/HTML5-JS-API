@@ -52,16 +52,19 @@
         <h1>01-事件觸發-練習</h1>
         <hr>
 
+        <!-- 建立一個可被放下的元素區域1 -->
         <div class="box" data-id="1">
-            <div class="item" id="item1" _________="true"></div>
+            <!-- 建立一個可拖曳的元素 -->
+            <div class="item" id="item1" _________></div>
             <!-- <img class="item" id="item1" src="image/img01.jpg" width="70" /> -->
         </div>
 
+        <!-- 建立一個可被放下的元素區域2 -->
         <div class="box" data-id="2"></div>
+
+        <!-- 建立一個可被放下的元素區域3 -->
         <div class="box" data-id="3"></div>
 
-        <div id="result"></div>
-      
 
         <script>
             
@@ -73,19 +76,20 @@
             item.addEventListener('_________', dragEnd);
 
             function dragStart(e) {
-                result.innerHTML = "dragStart";
-                //取得拖曳的元素資料
-                e._________('text/plain', e.target.id);
+                console.log("dragStart");
+                //設置拖曳元素時，要帶的資料
+                _________
                 setTimeout(() => {
                     //拖曳時隱藏元素
-                    e.target.classList.add('hide');
+                    _________
                 }, 0);
             }
 
             function dragEnd(e) {
                 //取消預設行為
                 e.preventDefault();
-                result.innerHTML = "dragEnd";
+                console.log("dragEnd");
+                //拖曳結束時顯示元素(移除hide class)
                 e.target.classList.remove('hide');
             }
 
@@ -93,19 +97,19 @@
             //為所有的box增加拖曳觸發及放下事件
             const boxes = document.querySelectorAll('.box');
             boxes.forEach(box => {
-                box.addEventListener('_________', dragEnter); //拖曳進入
-                box.addEventListener('_________', dragOver); //拖曳進經過
-                box.addEventListener('_________', dragLeave); //拖曳進離開
-                box.addEventListener('_________', drop); //拖曳進放下
+                box.addEventListener('dragenter', dragEnter); //拖曳進入
+                box.addEventListener('dragover', dragOver); //拖曳進經過
+                box.addEventListener('dragleave', dragLeave); //拖曳進離開
+                box.addEventListener('drop', drop); //拖曳進放下
             });
 
             //進入
             function dragEnter(e) {
                 //取消預設行為
-                _________
+                e.preventDefault();
                 //為目標元素加上類別
-                e._________('drag-over');
-                result.innerHTML = "進入" + e.target.getAttribute('data-id');
+                e.target.classList.add('drag-over');
+                console.log("dragEnter", "進入" + e.target.getAttribute('data-id'));
             }
 
             //經過
@@ -114,24 +118,24 @@
                 e.preventDefault();
                 //為目標元素加上類別
                 e.target.classList.add('drag-over');
-                //result.innerHTML = "經過" + e.target.getAttribute('data-id');
+                console.log("dragOver", "經過" + e.target.getAttribute('data-id'));
             }
 
             //離開
             function dragLeave(e) {
                 //為目標元素移除類別
-                e._________('drag-over');
-                result.innerHTML = "離開" + e.target.getAttribute('data-id');
+                e.target.classList.remove('drag-over');
+                console.log("dragLeave",  "離開" + e.target.getAttribute('data-id'));
             }
 
             //放下
             function drop(e) {
                 //為目標元素移除類別
-                result.innerHTML = "放下" + e.target.getAttribute('data-id');
+                console.log("drop", "放下" + e.target.getAttribute('data-id'));
                 e.target.classList.remove('drag-over');
 
                 //取得拖曳的元素資料
-                const id = e.dataTransfer.getData('text/plain');
+                const id = _________;
                 const draggable = document.getElementById(id);
 
                 //對目標區塊增加元素

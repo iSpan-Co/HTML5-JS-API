@@ -9,7 +9,9 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+        <!-- 引入 leaflet.css -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <!-- 引入 leaflet.js -->
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     </head>
 
@@ -19,13 +21,10 @@
         <hr>
 
         <div class="row">
-
             <div class="col-12 mb-3">
                 <button class="btn btn-primary" onclick="getLocation()">取得經緯度</button>
             </div> 
-
             <div class="col-12" id="myMap" style="width: 500px; height: 400px;"></div> 
-
         </div>
 
 
@@ -35,7 +34,9 @@
 
             var map;
             function init() {
+                //初始化leaflet地圖
                 map = L.map('myMap').setView([23.5, 121], 7);
+                //設置底圖及其他屬性
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
                     attribution: '© HTML5 JS API'

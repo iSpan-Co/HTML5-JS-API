@@ -24,16 +24,18 @@
         <script>
 
             function showNotification() {
-                // 檢查瀏覽器是否已授權
-                if (Notification._________ === 'granted') {
+                // 檢查瀏覽器是否已授權通知
+                if (_________ === 'granted') {
                     notification();
-                } else if (Notification._________ !== 'denied') {
+                } else if (_________ === 'default') {
                     // 未授權，彈出授權視窗
-                    Notification._________().then(permission => {
+                    _________.then(permission => {
                         if (permission === 'granted') {
                             notification();
                         }
                     });
+                } else {
+                    console.log('Notification denied!');
                 }
             }
 

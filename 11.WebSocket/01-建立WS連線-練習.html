@@ -52,28 +52,22 @@
             let socket;
 
             function openWs() {
-                //建立WebSocket物件wss://echo.websocket.org/
-                socket = new _________("_________");
+                //建立WebSocket物件 wss://echo.websocket.org/
                 
-                //設定WebSocket事件
-                socket._________ = (event) => {
-                    status.innerHTML = "已連線";
-                }
+                //監聽WebSocket連線事件
 
-                //接收WebSocket資料
-                socket._________ = (event) => {
-                    result.innerHTML += `來自於 SocketServer 的資料： ${_________}<br>`;
-                }
+                //監聽WebSocket接收資料事件
+
             }
 
             //傳送訊息
             function send() {
-                socket._________(_________);
+                
             }
 
             //關閉WebSocket連線
             function closeWs() {
-                socket._________();
+                
                 status.innerHTML = "關閉連線";
             }
 

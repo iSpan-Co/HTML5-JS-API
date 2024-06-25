@@ -46,31 +46,33 @@
 
             //畫斑馬線 ===============================================================
             
+            //設置線寬度30px，線為黑色
             var xPoint = 50;
             ctx.lineWidth = 30;
             ctx.strokeStyle = "black"; 
+            //畫N條線
             for (i = 1; i < 10; i++) {
-                ctx.beginPath();  
-                ctx.moveTo(xPoint * i, 100);    
-                ctx.lineTo(xPoint * i, 200);
-                ctx.stroke();   
+                ctx.beginPath();  //開始一段新的路徑
+                ctx.moveTo(xPoint * i, 100);    //畫筆移置x=xPoint*i,y=100 
+                ctx.lineTo(xPoint * i, 200);    //從上一個畫筆位置移到x=xPoint,y=200
+                ctx.stroke();   //畫線 
             } 
 
 
             //畫三角形(填色) ===============================================================
 
-            ctx.beginPath();   
-            ctx.moveTo(30,250);    
-            ctx.lineTo(30,350); 
-            ctx.lineTo(155,250);
-            ctx.closePath();
+            ctx.beginPath();   //開始一段新的路徑
+            ctx.moveTo(30,250);     //畫筆移置x=30,y=250
+            ctx.lineTo(30,350);     //從上一個畫筆位置移到x=30,y=350
+            ctx.lineTo(155,250);    //再從上一個畫筆位置移到x=155,y=250
+            ctx.closePath();    //閉合路徑
 
-            //依照路徑畫線
+            //設置路徑線寬度5px，線為紅色，並繪製線
             ctx.lineWidth = 5;
             ctx.strokeStyle = "red"; 
             ctx.stroke();        
 
-            //依照閉合區域填滿
+            //填色為綠色，並填充路徑
             ctx.fillStyle = "green";
             ctx.fill();
 

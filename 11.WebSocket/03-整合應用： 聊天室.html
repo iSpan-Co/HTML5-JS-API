@@ -22,13 +22,16 @@
 
     <body class="p-4">
 
-        <h1>03-應用：聊天室</h1>
+        <h1>03-整合應用：聊天室</h1>
         <h5>參考技術：
             <span class="badge bg-secondary">Form Validation</span>
+            <span class="badge bg-secondary">Audio</span>
             <span class="badge bg-secondary">WebSocket</span>
         </h5>
         <hr>
  
+        <audio id="myAudio" src="music/ring.mp3"></audio>
+
         <form class="row mt-3 g-3 needs-validation" novalidate>
             <div class="row justify-content-md-center">
                 <div class="col col-md-3">
@@ -137,7 +140,7 @@
             function enterRoom() {
 
                 //連線WebSocket
-                const socket = new WebSocket("https://localhost:7188/Ws2/chatRoom");
+                const socket = new WebSocket("wss://localhost:7188/Ws2/chatRoom");
       
                 //連線建立成功
                 socket.onopen = (event) => {               
@@ -164,6 +167,8 @@
                     console.log(data);   
                     if (data.Type === "newUser") {
                         room.innerHTML += `<div class="alert alert-info my-2 py-2">${data.User} 已加入聊天室</div>`;
+                        myAudio.src = "music/msn.mp3";
+                        myAudio.play();
                     } else if (data.Type === "message") {
                         showMessage(data);
                     }
@@ -171,7 +176,7 @@
 
                 //關閉WebSocket連線
                 socket.onclose = (event) => {
-                    alert('關閉錯誤: ' + event.toString());
+                    alert('關閉連線: ' + event.toString());
                     console.log(event);
                 };
 
@@ -199,6 +204,8 @@
                     if (txtMsg.value === "") {
                         var toast = new bootstrap.Toast(liveToast);
                         toast.show();
+                        myAudio.src = "music/error.mp3";
+                        myAudio.play();
                         return;
                     }
                     const data = {

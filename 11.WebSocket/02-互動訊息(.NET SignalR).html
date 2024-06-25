@@ -51,6 +51,7 @@
             const result = document.querySelector('#result');
             const send = document.querySelector('#send');
 
+            //建立signalR物件
             const connection = new signalR.HubConnectionBuilder()
             .withUrl("https://localhost:7188/chatSr")
             .build();
@@ -62,7 +63,7 @@
                 alert('連線錯誤: ' + err.toString());
             });
 
-            // 更新聊天內容事件
+            //更新聊天內容事件
             connection.on("UpdContent", function (msg) {
                 const li = document.createElement("li");
                 li.textContent = msg;

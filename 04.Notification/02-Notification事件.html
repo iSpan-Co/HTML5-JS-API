@@ -24,7 +24,7 @@
         <script>
 
             function showNotification() {
-                // 檢查瀏覽器是否已授權
+                // 檢查瀏覽器是否已授權通知
                 if (Notification.permission === 'granted') {
                     notification();
                 } else if (Notification.permission !== 'denied') {
@@ -45,24 +45,27 @@
                 };
                 const notification = new Notification('點我有驚喜!', options);
                 
-                // 绑定通知事件 - 點擊通知
+                // 通知點擊 - click事件
                 notification.onclick = function() {
                     console.log('Notification clicked!');
                     window.open('https://www.google.com');
                     //或其他js指令
                 };
 
-                /* notification.onshow = function() {
+                // 通知顯示 - show事件
+                notification.onshow = function() {
                     console.log('Notification shown!');
                 };
 
+                // 通知關閉 - close事件
                 notification.onclose = function() {
                     console.log('Notification closed!');
                 };
 
+                // 通知發生錯誤 - error事件
                 notification.onerror = function(event) {
                     console.error('Notification error:', event);
-                }; */
+                };
 
             }
             

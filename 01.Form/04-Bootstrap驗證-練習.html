@@ -21,38 +21,27 @@
                 
                 <div class="col-md-3">
                     <label for="txtName" class="form-label">姓名</label>
-                    <input type="text" class="form-control" id="txtName" required>
-                    <div class="invalid-feedback">
-                        請輸入姓名
-                    </div>
-                    <div class="valid-feedback">
-                        通過
-                    </div>
+                    <!--建立一個input元素，type="text"，class="form-control"，id="txtName"，並且加入required屬性-->
+                    <!--建立一個div元素，使其為bootstrap的invalid-feedback類別，用於顯示錯誤訊息：請輸入姓名-->
+                    <!--建立一個div元素，使其為bootstrap的valid-feedback類別，用於顯示成功訊息：通過-->
                 </div>
 
                 <div class="col-md-3">
                     <label for="txtAccount" class="form-label">帳號</label>
                     <div class="input-group has-validation">
                         <span class="input-group-text">@</span>
-                        <input type="text" class="form-control" id="txtAccount" required minlength="5" maxlength="10">
-                        <div class="invalid-feedback">
-                            請輸入5至10個字元
-                        </div>
-                        <div class="valid-feedback">
-                            通過
-                        </div>
+                        <!--建立一個input元素，type="text"，class="form-control"，id="txtAccount"，並且加入required屬性，限制最小長度為5，最大長度為10-->
+                        <!--建立一個div元素，使其為bootstrap的invalid-feedback類別，用於顯示錯誤訊息：請輸入5至10個字元-->
+                        <!--建立一個div元素，使其為bootstrap的valid-feedback類別，用於顯示成功訊息：通過-->
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <label for="txtMail" class="form-label">Email</label>
-                    <input type="text" class="form-control" id="txtMail" required pattern="[a-zA-Z0-9]{4}@[a-zA-Z0-9]\.com">
-                    <div class="invalid-feedback">
-                        請輸入email
-                    </div>
-                    <div class="valid-feedback">
-                        通過
-                    </div>
+                    <!--建立一個input元素，type="text"，class="form-control"，id="txtMail"，並且加入required屬性
+                        且需設置pattern屬性規則：限制email格式只能是英文、數字、@，及結尾為.com的格式 [a-zA-Z0-9]{4}@[a-zA-Z0-9]\.com -->
+                    <!--建立一個div元素，使其為bootstrap的invalid-feedback類別，用於顯示錯誤訊息：請輸入email-->
+                    <!--建立一個div元素，使其為bootstrap的valid-feedback類別，用於顯示成功訊息：通過-->
                 </div>
 
                 <div class="col-md-3">
@@ -89,13 +78,11 @@
                 <div class="col-6">
                     <label class="form-label">註冊條款</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="chkAgreement" required>
+                        <!--建立一個input元素，type="checkbox"，class="form-check-input"，id="chkAgreement"，並且加入required屬性-->
                         <label class="form-check-label" for="chkAgreement">
                             同意註冊條款
                         </label>
-                        <div class="invalid-feedback">
-                            您必須點選同意註冊條款
-                        </div>
+                        <!--建立一個div元素，使其為bootstrap的invalid-feedback類別，用於顯示錯誤訊息：您必須點選同意註冊條款-->
                     </div>
                 </div>
 
@@ -109,18 +96,13 @@
 
         <script>
 
-            // bootstrap 表單驗證事件
-            /* const form = document.querySelector('.needs-validation')
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-                form.classList.add('was-validated')
-            }, false); */
+            //bootstrap 表單驗證事件
+            const form = document.querySelector('.needs-validation')
+            //建立一監聽form的submit事件，並且在事件中判斷是否有任何元素未通過驗證，若有則取消預設事件
+
 
             //自訂Mail驗證事件
-            /* const txtMail = document.querySelector('#txtMail');
+            const txtMail = document.querySelector('#txtMail');
             txtMail.addEventListener('blur', function() {
                 const inValidObj = txtMail.closest('div').querySelector('.invalid-feedback');
                 var errorMsg = "";
@@ -135,7 +117,7 @@
                 }
                 txtMail.setCustomValidity(errorMsg);
                 inValidObj.innerHTML = errorMsg;
-            }); */ 
+            });
 
         </script>
 

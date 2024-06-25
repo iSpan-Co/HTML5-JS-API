@@ -28,15 +28,20 @@
             const xmlns = "http://www.w3.org/2000/svg";
             for (let i = 0; i < datas.length; i++) {
                 h = datas[i];
-                // 定義長條圖的矩形
-                const elem = document.createElementNS(xmlns, "_________");
-                elem.setAttribute("_________", x);  // 設定矩形左上角的x座標
-                elem.setAttribute("_________", y - h);  // 設定矩形左上角的y座標
-                elem.setAttribute("_________", w);  // 設定矩形寬度
-                elem.setAttribute("_________", h);  // 設定矩形高度
-                elem.setAttribute("_________", "gray");  // 設定矩形顏色
+                // 建立xml節點，元素名稱為矩形rect
+
+                //設定x屬性(矩形左上角的x座標)
+
+                //設定y屬性(矩形左上角的y座標)
+
+                //設定width屬性(矩形寬度)
+
+                //設定height(矩形高度)
+
+                //設定fill屬性(矩形顏色)
+
                 mySvg.appendChild(elem);
-                x = x + w + 10;
+                x = x + w + 10; //設定下一個矩形的左上角x座標
             }
 
         </script>

@@ -26,23 +26,23 @@
       
             function drawChart() {
       
-              var data = google.visualization.arrayToDataTable([
-                ['項目', '時間'],
-                ['工作', 8],
-                ['吃東西', 2],
-                ['睡覺', 8],
-                ['休閒娛樂', 2],
-                ['通勤', 1],
-                ['其他', 3]
-              ]);
+                var data = google.visualization.arrayToDataTable([
+                    ['項目', '時間'],
+                    ['工作', 8],
+                    ['吃東西', 2],
+                    ['睡覺', 8],
+                    ['休閒娛樂', 2],
+                    ['通勤', 1],
+                    ['其他', 3]
+                ]);
       
-              var options = {
-                title: '我的24小時'
-              };
-      
-              var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-      
-              chart.draw(data, options);
+                var options = {
+                    title: '我的24小時',
+                };
+        
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        
+                chart.draw(data, options);
             }
 
           </script>

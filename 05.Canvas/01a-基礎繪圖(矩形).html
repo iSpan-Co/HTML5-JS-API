@@ -28,21 +28,20 @@
             //渲染繪圖物件
             const ctx = canvas.getContext("2d");
 
-            //定義樣式
+            //畫一個填滿紅色的矩形，位於(30,30)，大小100x100px
             ctx.fillStyle = "red";
-            // 畫一個填滿的矩形
             ctx.fillRect(30, 30, 100, 100);
 
-            // 畫一個矩形的邊框
+            //畫一個綠色邊框的矩形，位於(170,30)，邊框寬度10px，大小100x100px
             ctx.strokeStyle = "green";
             ctx.lineWidth = 10;
             ctx.strokeRect(170, 30, 100, 100);
 
-            // 畫一個填滿的矩形，然後清除指定的矩形區域
+            //畫一個填滿黃色的矩形，位於(310,30)，大小100x100px
+            //然後清除一個指定的矩形區域，位於(340,60)，大小40x40px
             ctx.fillStyle = "#ffff00";
             ctx.fillRect(310, 30, 100, 100); 
             ctx.clearRect(340, 60, 40, 40);
-
 
         </script>
 

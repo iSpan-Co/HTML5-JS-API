@@ -27,19 +27,17 @@
             //渲染繪圖物件
             const ctx = canvas.getContext("2d");
 
+            //定義資料數值
             const datas = [90, 50, 270, 180, 50, 60, 320, 100, 190, 250];
            
             var w = 50; //矩形寬度
             var x = 20; //矩形左上角x座標
-            var y = canvas.height;  //矩形左上角y座標
+            var y = canvas.height;  //畫布高度
             ctx.fillStyle = "gray";
             for (var i = 0; i < datas.length; i++) {
-                //取得長條高度
-                h = datas[i];
-                //繪製矩形(x座標, y座標, 寬度, 高度)
-                ctx.fillRect(x, y - h, w, h);
-                //下一個x座標 = 前一個x座標 + 長條寬度 + 間隔
-                x = x + w + 10;
+                h = datas[i];   //取得長條高度
+                ctx.fillRect(x, y - h, w, h);   //繪製矩形(x座標, y座標, 寬度, 高度)
+                x = x + w + 10; //下一個x座標 = 前一個x座標 + 長條寬度 + 間隔
             }
 
         </script>

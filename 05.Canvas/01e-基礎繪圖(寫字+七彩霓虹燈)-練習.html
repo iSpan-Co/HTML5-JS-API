@@ -32,33 +32,25 @@
 
             const x = canvas1.width / 2;
             const y = canvas1.height / 2;
-            ctx1.font = "54pt Calibri";
-            ctx1.textAlign = "center";
-            ctx1.fillStyle = "#0000ff";
-            ctx1._________("Hello HTML5 JS API!", x, y + 20);
-            //ctx1.strokeStyle = "green";
-            //ctx1.lineWidth = 2;
-            //ctx1.strokeText("Hello HTML5 JS API!", x, y);
+            ctx1.font = "54pt Calibri"; //設定字型大小
+            ctx1.textAlign = "center";  //設定文字水平對齊方式
+            ctx1.fillStyle = "#0000ff"; //設定文字顏色
+            //在指定位置(x,y)寫文字 Hello HTML5 JS API!
 
 
             //七彩霓虹燈 ========================================================
             const canvas2 = document.querySelector("#canvas2");
             const ctx2 = canvas2.getContext("2d");
 
-            // 定義七種顏色
+            //定義七種顏色
             const colors = ["#0000ff", "#ff0000", "#00ff00", "#ffff00", "#ff00ff", "#00ffff", "#ffa500"]; 
             let colorIndex = 0;
             
-            // 每500毫秒變換一次顏色
+            //每500毫秒變換一次顏色
             setInterval(changeColor, 500); 
 
             function changeColor() {
-                ctx2._________(0, 0, canvas2.width, canvas2.height); // 清除畫布
-                ctx2.font = "54pt Calibri";
-                ctx2.textAlign = "center";
-                ctx2._________ = colors[colorIndex]; // 設置當前顏色
-                ctx2._________("Hello HTML5 JS API!", canvas2.width / 2, canvas2.height / 2 + 20); // 繪製文字
-                colorIndex = (colorIndex + 1) % colors.length; // 更新顏色索引
+                //試試看
             }
 
         </script>

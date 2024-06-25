@@ -27,29 +27,28 @@
             
             let flag = false;
             canvas.addEventListener("mousedown", function (evt) {
+                //當滑鼠按下時，註記flag為true
                 flag = true;
 
-                //todo 開始一個新路徑，產生後再使用繪圖指令來設定路徑。
-                ctx._________();
+                //開始一個新路徑
 
-                //todo 移動畫筆到指定的滑鼠點選的位置上
-                //使用event.offsetX 取得滑鼠的x軸座標點
-                //使用event.offsetY 取得滑鼠的y軸座標點
-                //canvas左上角為0,0
-                ctx._________(evt.offsetX, evt.offsetY)
+                //移動畫筆到指定的滑鼠點選的位置上
+                //使用evt.offsetX 取得滑鼠的x軸座標點
+                //使用evt.offsetY 取得滑鼠的y軸座標點
 
             });
 
             canvas.addEventListener("mousemove", function (evt) {
+                //判斷是否有按下滑鼠
                 if (flag) {
-                    //todo 從目前繪圖點畫一條直線到滑鼠點選的位置上
-                    ctx._________(evt.offsetX, evt.offsetY);
-                    //todo 畫出圖形的線條
-                    ctx._________();
+                    //從目前繪圖點畫一條直線到滑鼠點選的位置上
+                    
+                    //畫出線條
                 }
             });
             
             canvas.addEventListener("mouseup", function (evt) {
+                //當滑鼠放開時，註記flag為false
                 flag = false;
             });
 

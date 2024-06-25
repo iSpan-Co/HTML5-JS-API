@@ -33,10 +33,10 @@
             
             $(function() {
 
-                // 設定 draggable 物件
+                //初始化 draggable 物件
                 $("#draggable").draggable();
 
-                // 設定 droppable 物件
+                //初始化 droppable 物件，並設定放置事件被觸發後，增加 highlight 效果並顯示文字
                 $("#droppable").droppable({ 
                     drop: function(event, ui) {
                         $(this).addClass("ui-state-highlight").find("p").html("有東西放上來了!");

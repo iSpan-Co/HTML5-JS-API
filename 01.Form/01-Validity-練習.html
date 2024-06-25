@@ -20,15 +20,15 @@
             <div class="row g-3">
                 <div class="col-md-12">
                     <label for="txtAccount" class="form-label">帳號</label>
-                    <input type="text" class="form-control" id="txtAccount" _________>
+                    <!--建立一個input元素，type="text"，class="form-control"，id="txtAccount"，並且加入required屬性-->
                 </div>
                 <div class="col-md-12">
                     <label for="txtMail" class="form-label">EMAIL</label>
-                    <input type="email" class="form-control" id="txtMail">
+                    <!--建立一個input元素，type="email"，class="form-control"，id="txtMail"，並且加入required屬性-->
                 </div>
                 <div class="col-md-12">
                     <label for="txtAge" class="form-label">年紀</label>
-                    <input type="number" class="form-control" id="txtAge" _________ min="__" max="__">
+                    <!--建立一個input元素，type="number"，class="form-control"，id="txtAge"，限制最小值及最大值，並且加入required屬性-->
                 </div>
                 <div class="col-12 mt-3">
                     <button class="btn btn-primary" type="button" id="btnSend">送出</button>
@@ -43,10 +43,10 @@
             var txtMail = document.querySelector("#txtMail");
             var txtAge = document.querySelector("#btnSend");
             btnSend.addEventListener("click",function(){
-                console.log("帳號 checkValidity", txtAccount.checkValidity());
-                //console.log("帳號 validity", txtAccount.validity);
-                //console.log("EMAIL validity", txtMail.validity);
-                //console.log("年紀 validity", txtAge.validity);
+                //驗證帳號
+                console.log("帳號 checkValidity", _________);
+                //印出帳號的驗證屬性
+                console.log("帳號 validity", _________);
             })
             
         </script>

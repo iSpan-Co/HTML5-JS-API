@@ -24,7 +24,8 @@
                         <button class="btn btn-primary" onclick="screenshot()">截圖</button>
                     </div>
                     <div class="card-body">
-                        <!-- 顯示視訊 -->
+                        <!-- 建立video元素，並自動撥放 -->
+
                     </div>
                 </div>
             </div>
@@ -34,7 +35,8 @@
                         截圖
                     </div>
                     <div class="card-body">
-                        <canvas></canvas>
+                        <!-- 建立canvas元素 -->
+
                     </div>
                   </div>
             </div>
@@ -46,28 +48,22 @@
             const video = document.querySelector("video");
             const canvas = document.querySelector("canvas");
 
-            // 如果不支援getUserMedia
-            if (!navigator.mediaDevices?._________) {
-                    alert("不支援getUserMedia!");
+            //檢查瀏覽器是否支援getUserMedia
+            if (!navigator.mediaDevices?.getUserMedia) {
+                alert("不支援getUserMedia!");
             } else {
         
-                // 取得視訊鏡頭及音訊的媒體流
-                navigator.mediaDevices._________({ video: true, audio: false })
-                .then((localMediaStream) => {
-                    // 將媒體流設定到 <video> 元素
-                    video.srcObject = _________;
-                })
-                .catch((error) => {
-                    alert("未被授權!");
-                    console.log("錯誤訊息", error);
-                });
+                //取得視訊鏡頭及音訊的媒體流
+                
+                    //將媒體流設定到 <video> 元素
 
             }
 
             function screenshot() {
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
-                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                //渲染繪圖物件後，將視訊內容(影像)繪製到canvas元素
+
             }
 
         </script>

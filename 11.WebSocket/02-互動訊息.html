@@ -49,48 +49,47 @@
             const result = document.querySelector('#result');
             const send = document.querySelector('#send');
 
-            //建立WebSocket連線
-            const socket = new WebSocket("https://localhost:7188/Ws1/chatWs");
+            //建立WebSocket物件 wss://localhost:7188/Ws1/chatWs
+            const socket = new WebSocket("wss://localhost:7188/Ws1/chatWs");
       
-                //連線建立成功
-                socket.onopen = (event) => {               
-                    showMessage("連線成功");
-                };      
+            //監聽WebSocket連線事件
+            socket.onopen = (event) => {               
+                showMessage("連線成功");
+            };      
 
-                //接收WebSocket傳送過來的資料
-                socket.onmessage = (event) => {
-                    console.log(event.data);      
-                    showMessage(event.data);
-                };
+            //監聽WebSocket接收資料事件
+            socket.onmessage = (event) => {
+                console.log(event.data);      
+                showMessage(event.data);
+            };
 
-                //關閉WebSocket連線
-                socket.onclose = (event) => {
-                    alert('關閉錯誤: ' + event.toString());
-                    console.log(event);
-                };
+            //監聽WebSocket關閉事件
+            socket.onclose = (event) => {            
+                showMessage("關閉連線");
+            };
 
-                //WebSocket連線發生錯誤
-                socket.onerror = (error) =>  {
-                    alert('連線錯誤: ' + error.toString());
-                    console.error(event);
-                };
+            //監聽WebSocket連線發生錯誤事件
+            socket.onerror = (error) =>  {
+                alert('連線錯誤: ' + error.toString());
+                console.error(event);
+            };
 
-                //傳送訊息
-                send.addEventListener("click", function (event) {
-                    const data = {
-                        user: txtUser.value,
-                        message: txtMsg.value
-                    }
-                    //傳送JSON格式的資料
-                    socket.send(JSON.stringify(data));
-                });
-
-                //顯示訊息
-                function showMessage(msg) {
-                    const li = document.createElement("li");
-                    li.textContent = msg;
-                    result.appendChild(li);
+            //傳送訊息
+            send.addEventListener("click", function (event) {
+                //傳送JSON格式的資料
+                const data = {
+                    user: txtUser.value,
+                    message: txtMsg.value
                 }
+                socket.send(JSON.stringify(data));
+            });
+
+            //顯示訊息
+            function showMessage(msg) {
+                const li = document.createElement("li");
+                li.textContent = msg;
+                result.appendChild(li);
+            }
 
         </script>
 

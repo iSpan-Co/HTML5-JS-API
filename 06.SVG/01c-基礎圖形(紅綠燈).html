@@ -30,11 +30,22 @@
         <hr>
  
         <svg id="svg1" style="border: 1px solid gray; width:400px; height: 200px;">
+            <!-- 畫一個#276103圓形，中心點x=100,y=100，半徑r=50 -->
             <circle cx="100" cy="100" r="50" fill="#276103" />
+
+            <!-- 畫一個#276103圓形，中心點x=300,y=100，半徑r=50 -->
             <circle cx="300" cy="100" r="50" fill="#276103" />
+
+            <!-- 畫一個#276103矩形，左上角x=100,y=50，寬200，高100 -->
             <rect x="100" y="50" width="200" height="100" fill="#276103" />
+
+            <!-- 畫一個紅色圓形，中心點x=110,y=100，半徑r=35 -->
             <circle cx="110" cy="100" r="35" fill="red" />
+
+            <!-- 畫一個橘色圓形，中心點x=200,y=100，半徑r=35，class="blink" -->
             <circle cx="200" cy="100" r="35" fill="orange" class="blink" />
+
+            <!-- 畫一個綠色圓形，中心點x=290,y=100，半徑r=35 -->
             <circle cx="290" cy="100" r="35" fill="green" />
         </svg>
 
@@ -58,8 +69,10 @@
             
             function startTrafficLightCycle() {
 
-                //綠燈亮3秒後，轉橘燈
+                //初始設置綠燈亮起
                 circleG.style.fill = "#56c500";
+
+                //綠燈亮3秒後，轉橘燈
                 var intervalG = setInterval(() => {
                     circleG.style.fill = "#2f6c00";
                     clearInterval(intervalG);
