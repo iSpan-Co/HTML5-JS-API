@@ -34,7 +34,7 @@
                 //建立EventSource物件
                 source = new EventSource('https://localhost:7188/Sse/getTaipeiYoubikeInfo'); 
                 //接收到訊息時觸發事件
-                 source.addEventListener('serverTime', function(event) {
+                source.addEventListener('serverTime', function(event) {
                     console.log('資料id:', event.lastEventId);
                     console.log('資料id:',  event.data);
                     nowTime.innerHTML = event.data;
