@@ -39,7 +39,7 @@
                 <div class="col-md-6">
                     <label for="txtMail" class="form-label">Email</label>
                     <!--建立一個input元素，type="text"，class="form-control"，id="txtMail"，並且加入required屬性
-                        且需設置pattern屬性規則：限制email格式只能是英文、數字、@，及結尾為.com的格式 [a-zA-Z0-9]{4}@[a-zA-Z0-9]\.com -->
+                        且需設置pattern屬性規則：限制email格式只能是英文、數字、@，及結尾為.com的格式 [a-zA-Z0-9]{4,}@[a-zA-Z0-9]+\.com -->
                     <!--建立一個div元素，使其為bootstrap的invalid-feedback類別，用於顯示錯誤訊息：請輸入email-->
                     <!--建立一個div元素，使其為bootstrap的valid-feedback類別，用於顯示成功訊息：通過-->
                 </div>
